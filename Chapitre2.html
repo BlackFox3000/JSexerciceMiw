@@ -3,17 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <title>chapitre2:Exo</title>
+    <link rel="stylesheet" type="text/css" href="Chapitre2.css">
     <script src="Chapitre2.js"></script>
 </head>
 <body>
- <script>
-     var n="ez-787trytryrt-yr-978-zerzer"; //prompt("entrer une chaine de caractères");
-     var result= nombre(n) ? n+" contient un nombre ": n+" ne contient pas de nombre";
-     document.write(result+'<br>');
+     <script>
+         exercicePrint();
+     </script>
+    <div class="result">
 
-     //var n=prompt("entrer une chaine de caractères");
-     var result= entierPositif(n) ? n+" contient un nombre positif ": n+" ne contient pas de nombre positif";
-     document.write(result);
- </script>
+        <script>
+
+             var n="ez-787trytryrt-yr-978-zerzer"; //prompt("entrer une chaine de caractères");
+             var result= nombre(n) ? n+" contient un nombre ": n+" ne contient pas de nombre";
+             document.write(result+'<br>');
+
+             //var n=prompt("entrer une chaine de caractères");
+             var result= entierPositif(n) ? n+" contient un nombre positif ": n+" ne contient pas de nombre positif";
+             document.write(result);
+
+         </script>
+    </div>
+
+    <script>
+        exercicePrint();
+    </script>
+     <div class="result">
+         <script>
+             var n=prompt('Entrer un nombre:');
+             if(!n)
+                 n=0;
+             printPair(n);
+         </script>
+     </div>
+
+     <script>
+         exercicePrint();
+     </script>
+     <div class="result">
+         <script>
+             alert('Exercice 3, merci d\entrer 3 nombre:;');
+             exercice3(prompt('[1]'),prompt('[2]'),prompt('[3]'));
+         </script>
+     </div>
+
+
 </body>
 </html>

@@ -1,0 +1,21 @@
+body{
+    font-family: Roboto;
+}
+.Exercice{
+    font-size: 25px;
+    background: cornflowerblue;
+    text-align: center;
+    width: 200px;
+    height: 45px;
+    border-radius: 50%;
+
+}
+
+.inner{
+    padding: 3%;
+}
+
+.result{
+    margin: 2%;
+}
+
