@@ -92,19 +92,19 @@ function desc(tab) {
     var descTab=[];
     //parcourt de la table
    // document.write('descde '+printTab(tab)+' <br>');
-    tab.forEach(function (element) {
+   // for(var element of tab) {
        // document.write('element: '+element+'<br>');
-
-        for(var i=0; i<descTab.length+1; i++) {
+var i=0;
+        //for(var i=0; i<descTab.length+1; i++) {
             document.write('desctab de '+i+' ; '+descTab[i]+'<br>');
 
             if (descTab[i] == undefined) {
                 var plop=element*1;
-                //descTab[i]=8 ;
+                descTab[i]=8*1 ;
                 document.write('je suis indéfini:'+ element*1);
                 document.write('desctab de '+i+' ; '+descTab[i]+'<br>');
 
-            }/* else if (descTab[i] > element) {
+            } /*else if (descTab[i] > element) {
                 var save=element;
                 do {
                      save = descTab[i];
@@ -116,8 +116,19 @@ function desc(tab) {
             }*/
 
           //  document.write('desctab de '+i+' ; '+descTab[i]+'<br>');
-        }
-    })
+       // }
+  //  }
     return descTab;
 }
 
+function exercice4(n) {
+    var i=1, sum=0;
+    while (i<n*1+1*1){
+        //document.write('i: '+i+' n: '+n+' sum: '+sum+'<br>');
+        sum+=i;
+        i++
+        //document.write('i: '+i+' n: '+n+' sum: '+sum+'<br>');
+    }
+    return sum;
+
+}
