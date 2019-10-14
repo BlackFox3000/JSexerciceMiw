@@ -19,3 +19,11 @@ body{
     margin: 2%;
 }
 
+table{
+    border: solid;
+    background: black;
+}
+
+td{
+    background: aliceblue;
+}

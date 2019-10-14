@@ -144,3 +144,60 @@ function initialisationTab() {
     }
     return tab;
 }
+
+function exercice4(n){
+    if(n<0)
+        n=-n;
+    return n*(n*1+1)/2;
+}
+
+function areaSquare(n) {
+    return n*n;
+}
+
+function areaRectangle(l,L) {
+    return l*L;
+}
+
+function areaCercle(r) {
+    return r*r*3.14;
+}
+
+function area(forme) {
+    var i=0;
+    do {
+        var forme = prompt('Quel forme souhaitez vous calculer l\'aire:[ cercle, carré, rectangle,none]');
+        if(forme==='carré')
+            document.write('L\' aire d\'un carré:'+areaSquare(prompt('Longueur du carré')));
+        else if(forme==='rectangle')
+            document.write('L\' aire d\'un rectangle  :'+areaRectangle(prompt('Longueur du rectangle'),prompt('Largeur du rectangle')));
+        else if(forme==='cercle')
+            document.write('L\' aire d\'un cercle :'+areaCercle(prompt('Rayon du cercle')));
+        else if(forme==='none')
+            document.write('');
+
+        i++;
+    }while (i<3);
+}
+
+function suiteCarre(min, max) {
+    while (min<=max){
+        document.write(min+'='+min*min+' ; ');
+        min++
+    }
+
+}
+
+function suitePair() {
+    do{
+        document.write('Entrer 2 nombre min et max où min plus petit que max');
+        var min=prompt('min'), max=prompt('max');
+    }while (min*1>=max*1)
+    document.write('<table><tr>')
+    while (min<=max){
+        if(estPair(min))
+            document.write('<td>'+min+'</td>');
+        min++
+    }
+    document.write('</tr></table>');
+}
