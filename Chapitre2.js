@@ -1,6 +1,5 @@
 var exercice=1;
 
-
 function exercicePrint() {
     var div= '<div class="Exercice"> <div class="inner"> Exercice '+exercice+'</div>\n' +
         '</div>';
@@ -8,15 +7,14 @@ function exercicePrint() {
     document.write(div);
 }
 
-
 //exercice 1:
 function nombre(n){
-    var reg= new RegExp('.+[0-9]+.', 'g');
+    var reg= new RegExp('^[-+0-9][0-9]+\.?[0-9]+', 'g');
     return(reg.test(n));
 }
 
 function entierPositif(n) {
-    var reg= new RegExp('(.([^-][0-9]+).)*', 'g');
+    var reg= new RegExp('^[+]?[0-9]+', 'g');
     return(reg.test(n));
 }
 
@@ -131,6 +129,7 @@ function desc(tab) {
 }
 
 function initialisationTab() {
+
     var i=0, tab=[];
     var entrer=prompt('Entrer un nombre pour ajouter une variable à votre tableau sinon écrire "stop"./n' +
         'Initialisation de la case n°'+i);
