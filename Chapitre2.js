@@ -79,7 +79,7 @@ function min(tab) {
 function printTab(tab) {
     var tabPrint='[ ';
     tab.forEach(function (element) {
-        tabPrint+=element+' : ';
+        tabPrint+=element+' ';
     })
     tabPrint+=' ]';
     return tabPrint;
@@ -200,3 +200,24 @@ function suitePair() {
     }
     document.write('</tr></table>');
 }
+
+function multipleTab(n){
+    var tab= [];
+    for(var i=0; i<=10; i++){
+        tab.push(i*n);
+    }
+   return tab;
+}
+
+function pushInTable(tab){
+    let table='<table><tr>';
+    for(let i=0;i<tab.length; i++)
+        table +='<td>'+tab[i]+'</td>';
+    table+='</tr></table>';
+    return table
+}
+
+function exercice9(n) {
+    document.write(pushInTable(multipleTab(n)));
+}
+
