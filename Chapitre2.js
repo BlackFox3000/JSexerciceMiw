@@ -1,7 +1,11 @@
 var exercice=1;
 
-function exercicePrint() {
-    var div= '<div class="Exercice"> <div class="inner"> Exercice '+exercice+'</div>\n' +
+
+function exercicePrint(n) {
+    if(n!==undefined) {
+        exercice=parseInt(n);
+    }
+    var div = '<div class="Exercice"> <div class="inner"> Exercice ' + exercice + '</div>\n' +
         '</div>';
     exercice++;
     document.write(div);
@@ -217,7 +221,39 @@ function pushInTable(tab){
     return table
 }
 
-function exercice9(n) {
+function exercice9() {
+    do{
+        var n=prompt("Entrer un chiffre entre 2<= et =<9");
+    }while (n<2 || 9<n)
     document.write(pushInTable(multipleTab(n)));
 }
 
+function exercice10() {
+    var tab=[];
+    var reg= new RegExp('^[0-9]+$', 'g');
+    var element;
+    do{
+        element=prompt('Exercice 10: entrer stop ou un nombre:');
+        console.log(element);
+        //test si si ellement est différent de 'stop' et element n'est pas un chiffre
+        alert(!reg.test(element))
+        if(!reg.test(element)) {
+            document.write("Valeur: " + element + " n'est pas valide! regex:"+reg.test(element)+" stop:"+(element==='stop')+'<br>');
+            document.write(" condition:"+(element!=='stop' && (!(reg.test(element))))  );
+            element='stop';
+        }
+        alert(element);
+        //Si element différent de stop alors c'est un chiffre
+        if(element!=='stop')
+            //ajout de element dans tab[]
+            tab.push(element);
+        //Si element==stop, soit l'element rentré n'est pas un chiffre soit on a l'element==stop
+    }while (element!=='stop')
+    document.write(pushInTable(tab));
+    document.write('La valeur maximal est:'+max(tab));
+
+}
+
+function maxi(){
+    alert(arguments.length);
+}
