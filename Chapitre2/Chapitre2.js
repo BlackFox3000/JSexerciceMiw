@@ -23,7 +23,7 @@ function entierPositif(n) {
 }
 
 function estPair(n) {
-    return(n%2==0)
+    return(n%2===0)
 }
 
 function printPair(n){
