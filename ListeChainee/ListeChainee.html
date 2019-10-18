@@ -7,11 +7,13 @@
 </head>
 <body>
 <script>
-    let tPersonne=new Tpersonne();
-    tPersonne= new tPersonne.constructor('Durand');
+    let durand= new Tpersonne.constructor('Durand');
+    let dupont= new Tpersonne.constructor('Dupont');
 
-    tPersonne.list();
-
+   durand.list();
+    document.write('<br>-----------------<br>')
+    durand.add(dupont);
+    durand.list();
 
 </script>
 </body>

@@ -1,16 +1,29 @@
 class Tpersonne{
-    constructor(name,pNext)
-   {
+    name;
+    next;
+    constructor(name) {
        this.name=name;
-       if(pNext!=undefined)
-           this.next=pNext;
-       else
-           this.next=null;
+       this.next=null;
+    }
+    getName(){
+        return this.name;
+    }
+    getNext(){
+        return this.next;
+    }
+    setName(name){
+        this.name =name;
+    }
+    setNext(next){
+        this.next=next;
     }
 
     list(){
         list(this);
     };
+    add(tNext){
+        add(this,tNext);
+    }
 
 }
 
