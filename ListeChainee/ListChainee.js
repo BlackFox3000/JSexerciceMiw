@@ -27,11 +27,7 @@ class Tpersonne{
         if(this.getNext()==null)
        this.next=tNext;
         else
-            this.addEnd(tNext)
-    }
-
-    addEnd(tNext){
-        console.log('Plus qu\'à faire la function' );
+            this.getNext().add(tNext);
     }
 
 }
