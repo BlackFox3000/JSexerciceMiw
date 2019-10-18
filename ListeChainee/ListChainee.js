@@ -30,6 +30,10 @@ class Tpersonne{
             this.getNext().add(tNext);
     }
 
+    remove(name){
+        console.log('plus qu\'a faire la function');
+    }
+
 }
 
 /**
@@ -50,7 +54,7 @@ function list(Tpersonne){
  Pour supprimer un objet de la mémoire, il faut supprimer chacune de ses propriétés ou méthodes
  avec l'opérateur delete
  */
-function remove() {
+function remove(name) {
     return false;
 }
 
