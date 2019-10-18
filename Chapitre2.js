@@ -228,9 +228,9 @@ function exercice9() {
     document.write(pushInTable(multipleTab(n)));
 }
 
-function exercice10() {
+function WhoIsMaxEnter() {
     var tab=[];
-    var reg= new RegExp('^[0-9]+$', 'g');
+    var reg= new RegExp('^[0-9]+$');
     var element;
     do{
         element=prompt('Exercice 10: entrer stop ou un nombre:');
