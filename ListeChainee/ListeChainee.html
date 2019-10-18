@@ -9,11 +9,14 @@
 <script>
     let durand= new Tpersonne('Durand');
     let dupont= new Tpersonne('Dupont');
+    let andré= new Tpersonne('André');
 
-   durand.list();
+    durand.list();
     document.write('<br>-----------------<br>')
     durand.add(dupont);
+    dupont.add(andré);
     durand.list();
+    document.write('<br>-----------------<br>')
 
 </script>
 </body>

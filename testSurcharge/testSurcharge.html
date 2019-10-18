@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>testSurcharge</title>
+</head>
+<body>
+<script>
+    String.prototype.estNombreEntier=function () {
+        return /^[+]?\d+$/.test(this);
+    }
+    var test=prompt();
+    document.write(test+' est un nombre entier: '+test.estNombreEntier());
+</script>
+</body>
+</html>

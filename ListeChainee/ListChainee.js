@@ -1,6 +1,6 @@
 class Tpersonne{
-    name;
-    next;
+    #name;
+    #next;
     constructor(name) {
        this.name=name;
        this.next=null;
@@ -11,19 +11,22 @@ class Tpersonne{
     getNext(){
         return this.next;
     }
-    setName(name){
-        this.name =name;
-    }
-    setNext(next){
-        this.next=next;
+    rename(name){
+        this.name=name;
     }
 
     list(){
         list(this);
     };
+
+    /**
+     * ajout(n) : qui ajoutera le nom n en début de liste (vérifier que n soit composé de 2 à 20 caractères.
+     Transformer son format: première lettre en majuscule, les autres en minuscule).
+     */
     add(tNext){
-        add(this,tNext);
+       this.next=tNext;
     }
+
 
 }
 
@@ -32,21 +35,23 @@ class Tpersonne{
  * @returns {boolean}
  */
 function list(Tpersonne){
-    let list='';
-    while (Tpersonne.name!=null){
-        list+=Tpersonne.name+' ';
-        Tpersonne.name=Tpersonne.next;
+    let list='', temp= Tpersonne;
+    while (temp!=null){
+        list+=temp.getName()+' ';
+        temp=temp.getNext();
     }
     document.write(list);
 }
+
 
 /**
  * ajout(n) : qui ajoutera le nom n en début de liste (vérifier que n soit composé de 2 à 20 caractères.
  Transformer son format: première lettre en majuscule, les autres en minuscule).
  */
-function add(tPersonne, tNext){
-    Tpersonne.next=tNext
+add(tNext){
+    this.next=tNext;
 }
+
 
 /**
  * Suppression(n): qui supprimera le premier nom égal à n dans la liste. Le nom n peut ne pas exister.
@@ -56,3 +61,4 @@ function add(tPersonne, tNext){
 function remove() {
     return false;
 }
+
