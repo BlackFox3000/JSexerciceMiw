@@ -24,9 +24,15 @@ class Tpersonne{
      Transformer son format: première lettre en majuscule, les autres en minuscule).
      */
     add(tNext){
+        if(this.getNext()==null)
        this.next=tNext;
+        else
+            this.addEnd(tNext)
     }
 
+    addEnd(tNext){
+        console.log('Plus qu\'à faire la function' );
+    }
 
 }
 
@@ -42,16 +48,6 @@ function list(Tpersonne){
     }
     document.write(list);
 }
-
-
-/**
- * ajout(n) : qui ajoutera le nom n en début de liste (vérifier que n soit composé de 2 à 20 caractères.
- Transformer son format: première lettre en majuscule, les autres en minuscule).
- */
-add(tNext){
-    this.next=tNext;
-}
-
 
 /**
  * Suppression(n): qui supprimera le premier nom égal à n dans la liste. Le nom n peut ne pas exister.
