@@ -28,6 +28,10 @@ class List {
         document.getElementById('Liste').innerHTML = texte;
     }
 
+    /**
+     * Retirer l'élément "nom" de la liste
+     * @param name
+     */
     remove(name) {
         let temp = this.start;
         if (this.start.name == name) {
@@ -51,6 +55,9 @@ class List {
         }
     }
 
+    /**
+     * Réinitialise la liste
+     */
     init() {
         delete (this.start);
         document.getElementById("Liste").innerHTML = 'Liste rénitialisé';
@@ -74,13 +81,12 @@ class Tpersonne {
     getName() {
         return this.name;
     }
-
     getNext() {
         return this.next;
     }
 
     /**
-     * Affiche le contenue de l'objet
+     * Affiche le contenu de l'objet
      */
     list() {
         console.log(list(this));
@@ -96,7 +102,6 @@ class Tpersonne {
         else
             this.getNext().add(Tnext);
     }
-
 }
 
 /**
