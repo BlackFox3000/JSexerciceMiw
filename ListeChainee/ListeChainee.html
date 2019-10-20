@@ -7,17 +7,26 @@
 </head>
 <body>
 <script>
-    let durand= new Tpersonne('Durand');
-    let dupont= new Tpersonne('Dupont');
+    let durand= new Tpersonne('durand');
+    let dupont= new Tpersonne('DupONt');
     let andré= new Tpersonne('André');
+    let inconnu= new Tpersonne('x');
 
     durand.list();
     document.write('<br>-----------------<br>')
     durand.add(dupont);
     durand.add(andré);
     durand.list();
+    durand.add(new Tpersonne('jean-HEUDE'));
+    durand.list();
     document.write('<br>-----------------<br>')
-    durand.remove()
+    andré.list();
+    document.write('<br>-----------------<br>')
+    init(andré);
+    andré.list()
+   // durand.removeAtRank(2);
+  //  durand.list();
+
 </script>
 </body>
 </html>
