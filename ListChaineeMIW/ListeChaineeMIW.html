@@ -6,8 +6,30 @@
     <script src="ListChaineeMIW.js"></script>
 </head>
 <body>
+<div class="menu">
+    <button type="button" onclick="liste.list();">Liste</button>
+    <button type="button" onclick="liste.add(prompt('Entrer un nom à ajouter'))">Ajout</button>
+    <button type="button"onclick="liste.remove(prompt('Entrer un nom à supprimer'))">Suppression</button>
+    <button type="button" onclick="liste.init()">Réinitialiser la liste</button>
+</div>
 <script>
-  let liste=new List();
+    let liste=new List(prompt('Entrer le nom de la liste'));
+    console.log(document.getElementsByClassName('Listes'));
+    document.getElementsByClassName('Liste').innerHTML+=this.name;
+    console.log(document.getElementsByClassName('Listes'));
+</script>
+
+    <div class="listes">
+        <div class="Liste">
+        </div>
+    </div>
+
+
+
+
+
+<script>
+  /*let liste=new List();
   liste.list();
   liste.add('dupont');
   liste.list();
@@ -20,7 +42,7 @@
   liste.remove('Marc');
   liste.list();
   liste.init();
-  liste.list();
+  liste.list();*/
 
 
 

@@ -1,7 +1,9 @@
 class List{
+    name;
     start;
 
-    constructor(){
+    constructor(name){
+        this.name=name;
         this.start=null;
     }
 
@@ -24,7 +26,8 @@ class List{
      * Affiche le contenue de l'objet
      */
     list(){
-        list(this.start);
+        let texte= list(this.start);
+        document.getElementsByClassName('Liste').innerHTML = texte;
     }
 
     remove(name){
@@ -52,7 +55,7 @@ class List{
 
     init(){
         delete(this.start);
-        document.write('Liste rénitialisé');
+        document.getElementsByClassName(this.name).innerHTML ='Liste rénitialisé';
         this.start=null;
     }
 
@@ -81,7 +84,7 @@ class Tpersonne{
      * Affiche le contenue de l'objet
      */
     list(){
-        list(this);
+        console.log(list(this));
     }
 
     /**
@@ -125,5 +128,5 @@ function list(Tpersonne) {
         list += temp.getName() + ' ';
         temp = temp.getNext();
     }
-    document.write(list+'<br>');
+    return (list+'<br>');
 }
