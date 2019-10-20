@@ -3,6 +3,7 @@ class Tpersonne{
     next;
 
     constructor(name){
+        console.log(! nameIsValid(name));
         if(! nameIsValid(name))
             return false;
         this.name=transformIntoValidFormat(name);
@@ -23,6 +24,10 @@ class Tpersonne{
         list(this);
     }
 
+    add(Tnext){
+        Tnext.next=this;
+    }
+
 }
 
 /**
@@ -31,7 +36,7 @@ class Tpersonne{
  * @returns {boolean}
  */
 function nameIsValid(name){
-    return(name.length<21 || name.length>1);
+    return(name.length<21 && name.length>1);
 }
 
 /**
@@ -40,7 +45,7 @@ function nameIsValid(name){
  * @returns {string}
  */
 function transformIntoValidFormat(name){
-    return name= name.charAt(0).toUpperCase()+name.substr(1).toLowerCase();
+    return name.charAt(0).toUpperCase()+name.substr(1).toLowerCase();
 }
 
 /**
@@ -53,5 +58,5 @@ function list(Tpersonne) {
         list += temp.getName() + ' ';
         temp = temp.getNext();
     }
-    document.write(list);
+    document.write(list+'<br>');
 }
