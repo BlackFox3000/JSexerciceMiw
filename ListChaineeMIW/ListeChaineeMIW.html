@@ -9,45 +9,36 @@
 <div class="menu">
     <button type="button" onclick="liste.list();">Liste</button>
     <button type="button" onclick="liste.add(prompt('Entrer un nom à ajouter'))">Ajout</button>
-    <button type="button"onclick="liste.remove(prompt('Entrer un nom à supprimer'))">Suppression</button>
+    <button type="button" onclick="liste.remove(prompt('Entrer un nom à supprimer'))">Suppression</button>
     <button type="button" onclick="liste.init()">Réinitialiser la liste</button>
 </div>
 <script>
-    let liste=new List(prompt('Entrer le nom de la liste'));
-    console.log(document.getElementsByClassName('Listes'));
-    document.getElementsByClassName('Liste').innerHTML+=this.name;
-    console.log(document.getElementsByClassName('Listes'));
+    let liste = new List();
+
 </script>
 
-    <div class="listes">
-        <div class="Liste">
-        </div>
+<div id="listes">
+    <h1>*** Liste des Personnes ***</h1>
+    <div id="Liste">
     </div>
-
-
-
+</div>
 
 
 <script>
-  /*let liste=new List();
-  liste.list();
-  liste.add('dupont');
-  liste.list();
-  liste.add('henry');
-  liste.add('durant');
-  liste.add('Jean');
-  liste.add('marc');
-  liste.add('polo');
-  liste.list();
-  liste.remove('Marc');
-  liste.list();
-  liste.init();
-  liste.list();*/
-
-
-
-
-
+    /*let liste=new List();
+    liste.list();
+    liste.add('dupont');
+    liste.list();
+    liste.add('henry');
+    liste.add('durant');
+    liste.add('Jean');
+    liste.add('marc');
+    liste.add('polo');
+    liste.list();
+    liste.remove('Marc');
+    liste.list();
+    liste.init();
+    liste.list();*/
 </script>
 </body>
 </html>

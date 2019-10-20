@@ -5,12 +5,20 @@
     <title>testSurcharge</title>
 </head>
 <body>
+<button type="button" onclick=" document.getElementById('test').innerHTML+= 'yolo';">clique sur moi</button>
+<div id="test">
+
+</div>
 <script>
-    String.prototype.estNombreEntier=function () {
+   /* String.prototype.estNombreEntier=function () {
         return /^[+]?\d+$/.test(this);
-    }
+    } document.getElementsByClassName("test").innerHTML= "yolo";
     var test=prompt();
-    document.write(test+' est un nombre entier: '+test.estNombreEntier());
+    document.write(test+' est un nombre entier: '+test.estNombreEntier());*/
+
+
+    document.getElementsByClassName("test").innerHTML= "yolo";
+    console.log( document.getElementsByClassName("test"));
 </script>
 </body>
 </html>

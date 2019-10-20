@@ -1,23 +1,21 @@
-class List{
-    name;
+class List {
     start;
 
-    constructor(name){
-        this.name=name;
-        this.start=null;
+    constructor(name) {
+        this.start = null;
     }
 
     /**
      * Ajout d'un objet Tpersonne en début de liste
      * @param tPersonne
      */
-    add(name){
-        let tPersonne=new Tpersonne(name);
-        if(this.start==null)
-            this.start=tPersonne;
-        else{
+    add(name) {
+        let tPersonne = new Tpersonne(name);
+        if (this.start == null)
+            this.start = tPersonne;
+        else {
             tPersonne.add(this.start);
-            this.start=tPersonne;
+            this.start = tPersonne;
         }
     }
 
@@ -25,65 +23,66 @@ class List{
     /**
      * Affiche le contenue de l'objet
      */
-    list(){
-        let texte= list(this.start);
-        document.getElementsByClassName('Liste').innerHTML = texte;
+    list() {
+        let texte = list(this.start);
+        document.getElementById('Liste').innerHTML = texte;
     }
 
-    remove(name){
-        let temp=this.start;
-        if(this.start.name==name){
-            temp=temp.next;
+    remove(name) {
+        let temp = this.start;
+        if (this.start.name == name) {
+            temp = temp.next;
             delete (this.start);
-            this.start=temp;
+            this.start = temp;
 
         }
-        while(temp.next!=null){
-            if(temp.next.name==name){
+        while (temp.next != null) {
+            if (temp.next.name == name) {
                 //pour le delete
-                let trash=temp.next;
+                let trash = temp.next;
                 //nécessaire au delete
-                temp.next=temp.next.next;
+                temp.next = temp.next.next;
                 //optionnel pour le remove
                 delete (trash.name);
                 delete (trash.next);
 
             }
-            temp=temp.next;
+            temp = temp.next;
         }
     }
 
-    init(){
-        delete(this.start);
-        document.getElementsByClassName(this.name).innerHTML ='Liste rénitialisé';
-        this.start=null;
+    init() {
+        delete (this.start);
+        document.getElementById("Liste").innerHTML = 'Liste rénitialisé';
+        this.start = null;
     }
 
 }
 
 
-class Tpersonne{
+class Tpersonne {
     name;
     next;
 
-    constructor(name){
-        if(! nameIsValid(name))
+    constructor(name) {
+        if (!nameIsValid(name))
             return false;
-        this.name=transformIntoValidFormat(name);
-        this.next=null;
+        this.name = transformIntoValidFormat(name);
+        this.next = null;
     }
 
-    getName(){
+    getName() {
         return this.name;
     }
-    getNext(){
+
+    getNext() {
         return this.next;
     }
 
     /**
      * Affiche le contenue de l'objet
      */
-    list(){
+    list() {
         console.log(list(this));
     }
 
@@ -91,7 +90,7 @@ class Tpersonne{
      * Concatène Tnext à this  this+Tnext
      * @param Tnext
      */
-    add(Tnext){
+    add(Tnext) {
         if (this.getNext() == null)
             this.next = Tnext;
         else
@@ -105,8 +104,8 @@ class Tpersonne{
  * @param name
  * @returns {boolean}
  */
-function nameIsValid(name){
-    return(name.length<21 && name.length>1);
+function nameIsValid(name) {
+    return (name.length < 21 && name.length > 1);
 }
 
 /**
@@ -114,8 +113,8 @@ function nameIsValid(name){
  * @param name
  * @returns {string}
  */
-function transformIntoValidFormat(name){
-    return name.charAt(0).toUpperCase()+name.substr(1).toLowerCase();
+function transformIntoValidFormat(name) {
+    return name.charAt(0).toUpperCase() + name.substr(1).toLowerCase();
 }
 
 /**
@@ -128,5 +127,5 @@ function list(Tpersonne) {
         list += temp.getName() + ' ';
         temp = temp.getNext();
     }
-    return (list+'<br>');
+    return (list + '<br>');
 }
