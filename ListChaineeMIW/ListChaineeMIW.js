@@ -1,9 +1,69 @@
+class List{
+    start;
+
+    constructor(){
+        this.start=null;
+    }
+
+    /**
+     * Ajout d'un objet Tpersonne en début de liste
+     * @param tPersonne
+     */
+    add(name){
+        let tPersonne=new Tpersonne(name);
+        if(this.start==null)
+            this.start=tPersonne;
+        else{
+            tPersonne.add(this.start);
+            this.start=tPersonne;
+        }
+    }
+
+
+    /**
+     * Affiche le contenue de l'objet
+     */
+    list(){
+        list(this.start);
+    }
+
+    remove(name){
+        let temp=this.start;
+        if(this.start.name==name){
+            temp=temp.next;
+            delete (this.start);
+            this.start=temp;
+
+        }
+        while(temp.next!=null){
+            if(temp.next.name==name){
+                //pour le delete
+                let trash=temp.next;
+                //nécessaire au delete
+                temp.next=temp.next.next;
+                //optionnel pour le remove
+                delete (trash.name);
+                delete (trash.next);
+
+            }
+            temp=temp.next;
+        }
+    }
+
+    init(){
+        delete(this.start);
+        document.write('Liste rénitialisé');
+        this.start=null;
+    }
+
+}
+
+
 class Tpersonne{
     name;
     next;
 
     constructor(name){
-        console.log(! nameIsValid(name));
         if(! nameIsValid(name))
             return false;
         this.name=transformIntoValidFormat(name);
@@ -24,8 +84,15 @@ class Tpersonne{
         list(this);
     }
 
+    /**
+     * Concatène Tnext à this  this+Tnext
+     * @param Tnext
+     */
     add(Tnext){
-        Tnext.next=this;
+        if (this.getNext() == null)
+            this.next = Tnext;
+        else
+            this.getNext().add(Tnext);
     }
 
 }

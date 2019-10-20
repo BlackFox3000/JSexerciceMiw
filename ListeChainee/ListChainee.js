@@ -81,7 +81,6 @@ function init(personne){
 
 }
 
-
 /**
  * vérifier que name soit composé de 2 à 20 caractères.
  * @param name
