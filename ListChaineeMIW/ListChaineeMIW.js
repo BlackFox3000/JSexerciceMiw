@@ -1,6 +1,5 @@
 class List {
-    start;
-
+    //start;
     constructor(name) {
         this.start = null;
     }
@@ -66,10 +65,7 @@ class List {
 
 }
 
-
 class Tpersonne {
-    name;
-    next;
 
     constructor(name) {
         if (!nameIsValid(name))
