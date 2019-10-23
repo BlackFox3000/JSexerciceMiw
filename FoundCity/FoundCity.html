@@ -4,43 +4,43 @@
     <meta charset="UTF-8">
     <title>FoundCity</title>
 
-    <link rel="stylesheet" href="./leaflet/leaflet.css" />
+    <link href="./leaflet/leaflet.css" rel="stylesheet"/>
     <script src="./leaflet/leaflet.js"></script>
+    <script src="./map.js"></script>
+    <style>
+        #mapid {
+            margin: auto;
+            width: 70%;
+            height: 280px;
+        }
+    </style>
 <body>
-<input list="listVille"/>
-        <datalist class="list" id="listVille">
-            <option value="Gap">
-            <option value="La ciotat">
-            <option value="Sisteron">
-            <option value="Grasse">
-        </datalist>
+<form>
+    <select id="city-select" name="city" onchange="map(this.value)">
+        <option>----</option>
+        <option value="Paris:48.856614:2.352221">--Paris--</option>
+        <option value="Gap:44.566667:6.083333">--Gap--</option>
+        <option value="Nice:43.696036:7.265592">--Nice--</option>
+    </select>
+</form>
+<div id="mapid"></div>
+<script>
 
-<div class="map">
+    let
+        x = 0,
+        y = 0,
+        z = 0;
+    //initialisation de carte
+    var mymap = L.map('mapid').setView([x, y], z);
 
-    <div id="mapid" style=" height: 180px;"></div>
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.streets',
+        accessToken: 'pk.eyJ1IjoiYmxhY2tmb3gzMDAwIiwiYSI6ImNrMjM5eXd5OTFyNmMzbm12a2pscnhxMW0ifQ.2wfUEW5QjTCHWLzDwIiluQ'
+    }).addTo(mymap);
+</script>
 
 
-    <script>
-        var mymap = L.map('mapid').setView([51.505, -0.09], 13);
-
-        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            maxZoom: 18,
-            id: 'mapbox.streets',
-            accessToken: 'your.mapbox.access.token'
-        }).addTo(mymap);
-
-
-    /*let map = L.map('map').setView([51.505, -0.09], 13);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-
-    L.marker([51.5, -0.09]).addTo(map)
-    .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
-    .openPopup();*/
-    </script>
-</div>
 </body>
 </html>
