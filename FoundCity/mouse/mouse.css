@@ -1,0 +1,14 @@
+#testarea {
+    width: 100%;
+    height: 1000px;
+    cursor: none;
+}
+
+.cursor {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    left: -100px;
+    cursor: none;
+    pointer-events: none;
+}

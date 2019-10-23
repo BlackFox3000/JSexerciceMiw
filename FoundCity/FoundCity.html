@@ -5,13 +5,15 @@
     <title>FoundCity</title>
 
     <link href="./leaflet/leaflet.css" rel="stylesheet"/>
+    <link href="./mouse/mouse.css" rel="stylesheet"/>
     <script src="./leaflet/leaflet.js"></script>
     <script src="./map.js"></script>
     <style>
         #mapid {
             margin: auto;
-            width: 70%;
-            height: 280px;
+            width: 50%;
+            height: 446px;
+            border-radius: 50%;
         }
     </style>
 <body>
@@ -23,24 +25,16 @@
         <option value="Nice:43.696036:7.265592">--Nice--</option>
     </select>
 </form>
+
 <div id="mapid"></div>
+
 <script>
-
-    let
-        x = 0,
-        y = 0,
-        z = 0;
-    //initialisation de carte
-    var mymap = L.map('mapid').setView([x, y], z);
-
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
-        id: 'mapbox.streets',
-        accessToken: 'pk.eyJ1IjoiYmxhY2tmb3gzMDAwIiwiYSI6ImNrMjM5eXd5OTFyNmMzbm12a2pscnhxMW0ifQ.2wfUEW5QjTCHWLzDwIiluQ'
-    }).addTo(mymap);
+    var mymap,marker;
+    initialiseMap();
 </script>
-
-
+<!--
+<div id="testarea"></div>
+<img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQY01lJk7j5X8kwa9FkxSKGSyZsSdEtc6YsPYnam7LnC6oN9N1h" alt="Cursor" class="cursor" />
+-->
 </body>
 </html>
