@@ -1,10 +1,10 @@
-var libProd, prxProd;
+var libProd=['lait','cereales', 'pancake'], prxProd;
 
 /**
  * afficher le formulaire.
  */
 function afficheForm() {
-    var ch='<form>'
+    let ch='<form>'
         +'<label for="codePostal">Code Postal: </label>'
         +'<input type="text" name="codePostal" id="codePostal" required>'
         +'<br>'
@@ -13,10 +13,13 @@ function afficheForm() {
         +'<br>'
         +'<label for="mail">mail: </label>'
         +'<input type="text" name="mail" id="mail" required>'
+        +'<br>'
     ;
 
+    let menuDeroulant=generatorListeDeroulante();
 
-    document.getElementsByTagName("body")[0].innerHTML=ch;
+
+    document.getElementsByTagName("body")[0].innerHTML=ch+menuDeroulant;
 }
 
 /**
@@ -105,4 +108,16 @@ function numTelIsValide(numTel) {
 function mailIsValide(mail) {
     let reg=new RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z]+\.[a-zA-Z0-9]{2,4}$/);
     return reg.test(mail);
+}
+
+function generatorListeDeroulante() {
+    let menu=
+    '<br><form>\n' +
+    '    <select id="produits" name="produits" onchange="map(this.value)">\n' +
+    '        <option>----</option>\n';
+    for(let i=0; i<libProd.length; i++){
+        menu += '<option value="'+libProd[i]+'">'+libProd[i]+'</option>';
+    }
+    menu += '    </select> </form>'
+    return menu;
 }
