@@ -129,7 +129,7 @@ function transformIntoValidFormat(name) {
 function list(Tpersonne) {
     let list = '', temp = Tpersonne;
     while (temp != null) {
-        list += temp.getName() + ' ';
+        list += temp.getName() + '<br>';
         temp = temp.getNext();
     }
     return (list + '<br>');
