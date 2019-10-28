@@ -257,3 +257,37 @@ function WhoIsMaxEnter() {
 function maxi(){
     alert(arguments.length);
 }
+
+function substitue(c1, c2, c){
+    let reg= new RegExp(c1, "g")
+    return c.replace(reg,c2);
+}
+
+function exercice11(name, lastname, born){
+    if(! dateIsValid(born))
+        return false;
+    let dateFR= born.split('/');
+    let date=new Date(dateFR[2],dateFR[1],dateFR[0])
+    console.log(date)
+}
+
+/**
+ * test si date est de format:dd/MM/yyyy
+ * @param date
+ */
+function dateIsValid(date) {
+    let reg=new RegExp("^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$","g");
+    return  reg.test(date);
+
+}
+//astuce
+
+/*
+window.open(f)
+f.write
+
+let saisi= 'les trois nombres sont:
+                A: ${a}
+                B: ${b}
+                C: ${c}'
+ */

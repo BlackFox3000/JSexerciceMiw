@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FoundCity</title>
+
+    <link href="./leaflet/leaflet.css" rel="stylesheet"/>
+    <script src="./leaflet/leaflet.js"></script>
+    <script src="./map.js"></script>
+    <style>
+        #mapid {
+            margin: auto;
+            width: 50%;
+            height: 446px;
+            border-radius: 50%;
+        }
+    </style>
+<body>
+<form>
+    <select id="city-select" name="city" onchange="map(this.value)">
+        <option>----</option>
+        <option value="Paris:48.856614:2.352221">--Paris--</option>
+        <option value="Gap:44.566667:6.083333">--Gap--</option>
+        <option value="Nice:43.696036:7.265592">--Nice--</option>
+    </select>
+</form>
+
+<div id="mapid"></div>
+
+<script>
+    var mymap,marker;
+    initialiseMap();
+</script>
+
+</body>
+</html>
