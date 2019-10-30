@@ -1,4 +1,4 @@
-var libProd=['lait','cereales', 'pancake'], prxProd=[1.70,2.90,4.90];
+var libProd=['lait','cereales', 'pancake'], prxProd=[1.70,2.90,4.90], nbProduit=0;
 
 /**
  * afficher le formulaire.
@@ -24,14 +24,20 @@ function afficheForm() {
         +'<input type="text" name="mail" id="mail" required>'
         +'<br> </form>'
     ;
+    let addProduit='<input type="button" value="Ajouter produit" onclick="affLigne()">'
 
-    let menuDeroulant=  '<br><form name="produit" >\n' +generatorListeDeroulante()+'<input name="prix" value=0 readonly>' +
+
+
+
+
+  /*  let menuDeroulant=  '<br><form name="produit" >\n' +generatorListeDeroulante()+'<input name="prix" value=0 readonly>' +
         ' <input type="button" value="+" onclick="plus(document.produit.produits.value)">' +
         ' <input type="button" value="-" onclick="moins(document.produit.produits.value)"> ' +
+        ' <input type="button" value="x" onclick="sup(document.produit.produits.value)"> ' +
         '</form>';
 
-
-    document.getElementsByTagName("body")[0].innerHTML=ch+menuDeroulant;
+*/
+    document.getElementsByTagName("body")[0].innerHTML=ch+addProduit+'<div class="liste">test</div>'//+menuDeroulant;
 }
 
 /**
@@ -40,9 +46,10 @@ function afficheForm() {
  * @param n
  * @returns {boolean}
  */
-function plus(value) {
-    if (Number(document.produit.prix.value).toFixed(2) != 0 && Number(document.produit.prix.value != undefined).toFixed(2)) {
-        document.produit.prix.value = Number(prxProd[value] * 1 + document.produit.prix.value * 1).toFixed(2);
+function plus(n) {
+    let value= document.n.produits.value
+    if (Number(document.n.prix.value).toFixed(2) != 0 && Number(document.n.prix.value != undefined).toFixed(2)) {
+        document.n.prix.value = Number(prxProd[value] * 1 + document.n.prix.value * 1).toFixed(2);
     }
 }
 
@@ -56,8 +63,7 @@ function moins(value) {
     if (document.produit.prix.value*1 > value*1 && document.produit.prix.value!=0) {
         document.produit.prix.value= Number(document.produit.prix.value-prxProd[value]).toFixed(2);
         if( document.produit.prix.value==0 || document.produit.prix.value<0) {
-            document.produit.produits.value = -1;
-            document.produit.prix.value=0;
+            sup(value)
         }
 
     }
@@ -71,7 +77,8 @@ function moins(value) {
  * @returns {boolean}
  */
 function sup(n) {
-    return false;
+    document.produit.produits.value = -1;
+    document.produit.prix.value=0;
 }
 
 /**
@@ -99,8 +106,16 @@ function validationCmd() {
  * les valeurs des listes déroulantes changeront
  * @param n
  */
-function affLigne(n) {
-    return false;
+function affLigne() {
+
+    let form='<br><form name="carte'+nbProduit+'" >\n' +generatorListeDeroulante("carte"+nbProduit)+'<input name="prix" value=0 readonly>' +
+    ' <input type="button" value="+" onclick="plus("carte"+nbProduit)">' +
+    ' <input type="button" value="-" onclick="moins(document.'+nbProduit+'.produits.value)"> ' +
+    ' <input type="button" value="x" onclick="sup(document.'+nbProduit+'.produits.value)"> ' +
+    '</form>';
+    nbProduit++;
+    document.getElementsByClassName("liste")[0].innerHTML+=form;
+  //  document.getElementsByClassName("liste")[]
 }
 
 /**
@@ -133,10 +148,15 @@ function mailIsValide(mail) {
     return reg.test(mail);
 }
 
-function generatorListeDeroulante() {
+/**
+ * Génère la liste déroulante pour un bouton
+ * @returns {string}
+ */
+function generatorListeDeroulante(n){
+    console.log(n);
     let menu=
-    '    <select id="produits" name="produits" onchange="takePrice(this.value)">\n' +
-    '        <option value=-1>----</option>\n';
+    '    <select id="produits" name="produits" onchange="document.'+n+'.prix.value=prxProd[this.value]">\n' +
+    '        <option value=-1>--Choisir--</option>\n';
     for(let i=0; i<libProd.length; i++){
         menu += '<option value="'+i+'">'+libProd[i]+'</option>';
     }
@@ -146,9 +166,10 @@ function generatorListeDeroulante() {
 
 /**
  * Place le prix correspondant au produit sélectionner dans la case prix
+ * Inutilisé
  * @param value
  */
-function takePrice(value) {
-   document.produit.prix.value=prxProd[value];
+function takePrice(value, n) {
+   document.n.prix.value=prxProd[value];
 }
 
