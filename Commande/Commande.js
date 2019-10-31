@@ -1,10 +1,10 @@
-var libProd = ['lait', 'cereales', 'pancake'], prxProd = [1.70, 2.90, 4.90], nbProduit = 0;
+var libProd = ['lait', 'cereales', 'pancake'], prxProd = [1.70, 2.90, 4.90], nbProduit = 0, TVA=19.5;
 
 /**
  * afficher le formulaire.
  */
 function afficheForm() {
-    let authentification = '<form name="identification">'
+    let authentification = '<div  class="identification"><form name="identification">'
         + '<label for="nom">Nom: </label>'
         + '<input type="text" name="nom" id="nom" required>'
         + '<label for="prenom">Prénom: </label>'
@@ -22,19 +22,27 @@ function afficheForm() {
         + '<input type="text" name="tel" id="tel" required oninput="ctrlInput()">'
         + '<label for="mail">mail: </label>'
         + '<input type="text" name="mail" id="mail" required>'
-        + '<br> </form>'
+        + '<br> </form></div>'
     ;
 
-    /*  let menuDeroulant=  '<br><form name="produit" >\n' +generatorListeDeroulante()+'<input name="prix" value=0 readonly>' +
-          ' <input type="button" value="+" onclick="plus(document.produit.produits.value)">' +
-          ' <input type="button" value="-" onclick="moins(document.produit.produits.value)"> ' +
-          ' <input type="button" value="x" onclick="sup(document.produit.produits.value)"> ' +
-          '</form>';
-
-  */
     document.getElementsByTagName("body")[0].innerHTML = authentification + '<div class="liste"></div>';
     affLigne();
 
+    document.getElementsByTagName("body")[0].innerHTML +='<div class="total"> <form name="total">' +
+        '<label for="montantHT">Montant Hors Taxe: </label>' +
+        '<input type="text" name="montantHT" readonly>' +
+        '<label for="montantTVA">TVA '+TVA+'%: </label>' +
+        '<input type="text" name="montantTVA" readonly>' +
+        '<label for="montantTTC">Montant TTC: </label>' +
+        '<input type="text" name="montantTTC" readonly>' +
+        '</form> </div>';
+
+    document.getElementsByTagName("body")[0].innerHTML +=
+        '<div id="option"> <input type="button" value="Recommencer" onclick="resetForm()">' +
+        '<input type="button" value="Valider" onclick="validationCmd()">' +
+        ' </div>';
+
+    affMontant();
 }
 
 /**
@@ -50,6 +58,7 @@ function plus(n) {
         document.forms[n].prix.value = Number(prxProd[value] * 1 + document.forms[n].prix.value * 1).toFixed(2);
     }
     document.forms[n].quantite.value++;
+    affMontant();
 }
 
 /**
@@ -72,6 +81,7 @@ function moins(n) {
 
 
     }
+    affMontant();
 }
 
 
@@ -87,6 +97,8 @@ function sup(n) {
     document.forms[n].produits.value = -1;
     document.forms[n].prix.value = 0;
     document.forms[n].quantite.value =0;
+
+    affMontant();
 }
 
 /**
@@ -95,8 +107,17 @@ function sup(n) {
  * @returns {boolean}
  */
 function affMontant() {
-    //document.produit.prix.value;
-    return false;
+    let montantHT=document.total.montantHT.value;
+    for(let i=0; i<nbProduit; i++){
+        let form='carte'+i;
+        console.log(document.forms[form].prix.value)
+        let value=document.forms[form].prix.value
+        if(value == undefined)
+            value=0;
+        montantHT+=value;
+    }
+
+    document.total.montantHT.value= montantHT;
 }
 
 /**
@@ -178,7 +199,7 @@ function mailIsValide(mail) {
  */
 function generatorListeDeroulante(n) {
     let menu =
-        '    <select id="produits" name="produits" onchange="takePrice(this.value, ' + n + ')">\n' +
+        '    <select id="produits" name="produits" onchange="takePrice(this.value, ' + n + '); affMontant()">\n' +
         '        <option value=-1>--Choisir--</option>\n';
     for (let i = 0; i < libProd.length; i++) {
         menu += '<option value="' + i + '">' + libProd[i] + '</option>';
@@ -226,4 +247,11 @@ function formIsNotEmpty(n) {
         if(n[i].value == '')
             return false
     return  true;
+}
+
+function resetForm() {
+   // console.log( document.getElementsByClassName('liste')[0].innerHTML)
+    document.getElementsByClassName('liste')[0].innerHTML='';
+    nbProduit=0;
+    affLigne();
 }
