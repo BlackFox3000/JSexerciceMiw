@@ -4,7 +4,7 @@ var libProd = ['lait', 'cereales', 'pancake'], prxProd = [1.70, 2.90, 4.90], nbP
  * afficher le formulaire.
  */
 function afficheForm() {
-    let authentification = '<form name="indentification">'
+    let authentification = '<form name="identification">'
         + '<label for="nom">Nom: </label>'
         + '<input type="text" name="nom" id="nom" required>'
         + '<label for="prenom">Prénom: </label>'
@@ -19,7 +19,7 @@ function afficheForm() {
         + '<input type="text" name="ville" id="ville" required>'
         + '<br>'
         + '<label for="tel">Numéro de télephone: </label>'
-        + '<input type="text" name="tel" id="tel" required>'
+        + '<input type="text" name="tel" id="tel" required oninput="ctrlInput()">'
         + '<label for="mail">mail: </label>'
         + '<input type="text" name="mail" id="mail" required>'
         + '<br> </form>'
@@ -105,7 +105,19 @@ function affMontant() {
  * alerte )
  */
 function validationCmd() {
-    return false;
+    //console.log(document.identification)
+    let codePost=document.identification.codePostal.value;
+    let numTel=document.identification.tel.value;
+    let mail=document.identification.mail.value
+    let erreur='';
+    if(! codePostalIsValide(codePost)) erreur+="Code postal invalide! \n";
+    if(! numTelIsValide(numTel)) erreur +="Num tel invalide! \n";
+    if(! mailIsValide(mail)) erreur +="Mail invalide! \n";
+    if(! formIsNotEmpty(document.identification)) erreur +="formulaire incomplet!! \n";
+    console.log('functon:'+ formIsNotEmpty(document.identification))
+    if(erreur == '') alert("cm valide");
+    else
+        alert(erreur);
 }
 
 /**
@@ -191,4 +203,27 @@ function takePrice(value, n) {
     }
 }
 
-//document.'+n+'.prix.value=prxProd[this.value]
+/**
+ * Controle que le numéro ne dépasse pas 10 chiffres et place les points pour le numéro de téléphone
+ */
+function ctrlInput() {
+    console.log('test')
+    let length =document.identification.tel.value.length;
+    if(length==2 || length==5 || length==8 || length==11)
+            document.identification.tel.value+='.'
+    //empêche d'entrer un numéro de téléphone > 10
+    if(length>14)
+        document.identification.tel.value= document.identification.tel.value.substr(0,14);
+}
+
+/**
+ * Vérifie que le formulaire à toutes ses cases remplies
+ * @param formulaire
+ * @returns {boolean}
+ */
+function formIsNotEmpty(n) {
+    for(let i=0; i<n.length; i++ )
+        if(n[i].value == '')
+            return false
+    return  true;
+}
