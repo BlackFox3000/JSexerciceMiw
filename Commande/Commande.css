@@ -1,6 +1,7 @@
-body{
-    background:#073a40 ;
+body {
+    background: #073a40;
 }
+
 input[type=text], select {
     width: 20%;
     padding: 6px 10px;
@@ -12,30 +13,32 @@ input[type=text], select {
     box-sizing: border-box;
 }
 
-div{
+div {
     border-radius: 5px;
     padding: 20px;
 }
+
 .liste {
-    background-color: cornflowerblue ;
+    background-color: cornflowerblue;
 }
 
-.identification{
+.identification {
     background-color: #f2f2f2;
     display: flex;
 
 }
 
-.total{
+.total {
     background: #36cee1;
 
     display: block;
 }
-#adresse{
+
+#adresse {
     width: 40%;
 }
 
-#option{
+#option {
     background: lightskyblue;
     border-radius: 25px;
     width: 20%;
