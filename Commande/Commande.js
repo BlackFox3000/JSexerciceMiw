@@ -107,17 +107,17 @@ function sup(n) {
  * @returns {boolean}
  */
 function affMontant() {
-    let montantHT=document.total.montantHT.value;
+    let montantHT=0;
     for(let i=0; i<nbProduit; i++){
         let form='carte'+i;
-        console.log(document.forms[form].prix.value)
         let value=document.forms[form].prix.value
         if(value == undefined)
             value=0;
-        montantHT+=value;
+        montantHT=Number(value*1+montantHT*1).toFixed(2);
     }
-
-    document.total.montantHT.value= montantHT;
+    document.total.montantHT.value= Number(montantHT).toFixed(2);
+    document.total.montantTVA.value= Number(montantHT/100*TVA).toFixed(2);
+    document.total.montantTTC.value=Number(document.total.montantTVA.value*1+document.total.montantHT.value*1).toFixed(2);
 }
 
 /**
@@ -253,5 +253,6 @@ function resetForm() {
    // console.log( document.getElementsByClassName('liste')[0].innerHTML)
     document.getElementsByClassName('liste')[0].innerHTML='';
     nbProduit=0;
+    affMontant();
     affLigne();
 }
