@@ -15,13 +15,13 @@
 * alert(x.p(3)) ; // affichera 125
 * Étendre la classe Node avec les méthodes suivantes:
 * - changeId(val) qui permet d'initialiser l'attribut id du nœud concerné avec la valeur val, cette
- méthode retournera le nœud modifié
- Exemple : $("val1").changeId("val2").changeId("val3")
- Cette écriture se positionne sur le nœud ayant l'attribut id = "val1" puis change sa valeur en val2
- puis en val3.
- - css(obj) qui permet d'ajouter au nœud concerné les propriétés CSS contenues dans l'objet obj.
- Exemple: $("val1").css({"height":"60px","color":"green"})
- Remarque: noeud.style.height="60px"  nœud.style["height"]="60px"
+* méthode retournera le nœud modifié
+* Exemple : $("val1").changeId("val2").changeId("val3")
+* Cette écriture se positionne sur le nœud ayant l'attribut id = "val1" puis change sa valeur en val2
+* puis en val3.
+* - css(obj) qui permet d'ajouter au nœud concerné les propriétés CSS contenues dans l'objet obj.
+* Exemple: $("val1").css({"height":"60px","color":"green"})
+* Remarque: noeud.style.height="60px"  nœud.style["height"]="60px"
  Etendre les classes String, Array, Number, Node avec la méthode suivante :
  - extend(obj) qui permet d'étendre les slots de l'objet concerné avec les slots de l'objet obj
  Exemples: String.prototype.extend({
@@ -79,6 +79,11 @@ Number.prototype.p=function (n){
 Node.prototype.changeId=function (val) {
   this.id=val;
 }
-
+Node.prototype.css=function (obj) {
+//let objet=obj.split('"');
+ console.log(obj)
+ for(let i in obj)
+  this.style[i]=obj[i];
+}
 
 
