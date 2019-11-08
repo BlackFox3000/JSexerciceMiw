@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>chapitre4</title>
+    <script src="chapitre4.js"></script>
+</head>
+<body>
+<div id="ff"> plop </div>
+<script>
+ /*   Object.prototype.each = function () {
+        for (let i in this) {
+            alert(i + ":" + this[i]);
+        }
+    };
+    let t = {"nom": "Dupont", "prenom": "Pierre"};
+    t.each();*/
+    let moi="...undeuxtrois.......", num=2;
+    let t1=["1","2","3"], t2=["4","5","6"];
+    document.write(
+        moi+
+        '<br>left: '+moi.left(2)+
+        '<br>right: '+ moi.right(2)+
+        '<br>capitalize: '+ moi.capitalize(2)+
+        '<br>trim: '+ moi.trim()+
+        '<br>merge: '+t1.merge(t2)+
+        '<br>puissance: '+ num.p(4)
+ )
+ document.getElementById('ff').changeId('top')
+</script>
+
+</body>
+</html>
