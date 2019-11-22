@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>chap:5_ex:5</title>
+    <script src="../miw.js"></script>
+    <script src="../generator_html.js"></script>
+    <script src="Position.js" ></script>
+    <script src="JeuImage.js"></script>
+</head>
+<body class="body">
+    <div style=" position: fixed; bottom: 20px;">
+    Vitesse <input type="number" class="vitesse" min="0" max="50" value="1" onchange="update_vitesse(this.value)">
+    taille  <input type="number" class="taille" min="1" max="50" value="5" onchange="update_taille(this.value)">
+    </div>
+</body>
+<script>
+
+    let image=new JeuImage('./Balle-Scane-90mm3.jpg','balle',_ecn('vitesse')[0].value,_ecn('taille')[0].value);
+    image.affiche(image.pos.x,image.pos.y);
+    function update_taille(value) {
+        let element=_ecn(image.name);
+        element[0].style.top=image.pos.y+'px'
+    }
+    function update_vitesse(value) {
+        let element=_ecn(image.name);
+        element[0].style.top=image.pos.y+'px'
+    }
+</script>
+</html>
