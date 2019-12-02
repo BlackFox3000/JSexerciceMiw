@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Partiel</title>
+    <script src="miw%20V%2018%2011%202019.js"></script>
+
+</head>
+<body>
+Partiel :
+<div class="exercice_1">
+
+</div>
+
+
+</body>
+
+</html>
+<script>
+    let tab=[0,5,1,64,64,1,48,-5];
+    let text="Tableau= "+tab
+    createNodeV2('exercice_1',0,'div',['class'],["result_1"],text)
+    let resultMax=document.createTextNode("   Max: "+tab.max());
+    let resultMin=document.createTextNode("   Min: "+tab.min());
+    let resultAvg=document.createTextNode("   Avg: "+tab.avg());
+    let resultEx1= document.getElementsByClassName('result_1')[0];
+    resultEx1.appendChild(resultMax);
+    resultEx1.appendChild(resultMin);
+    resultEx1.appendChild(resultAvg);
+
+
+    //dynamique sans raccourcie ---------------------
+
+    /**
+     * Ajoute un élément à un noeud (parent)
+     * @param node_class
+     * @param node_position
+     * @param element_name
+     * @param tab_atribute_name
+     * @param tab_atribut_value
+     * @param text
+     * @author floren
+     */
+    function createNodeV2(node_class,node_position, element_name, tab_atribute_name, tab_atribut_value, text ) {
+        d=document;
+        //On récupère le noeud parent où l'on ajoutera le noeud
+        // similaire à: let formulaire=d.getElementById("test");
+
+        let node=d.getElementsByClassName(node_class)[node_position];
+        //on créé l'élément
+        //similaire à: <label for="isbn">Entrer un numéro ISBN-13</label>
+        let element = d.createElement(element_name);
+        //on créé et lui ajoute les attributs compris dans tab
+        if(tab_atribute_name !== undefined)
+            for(let i=0; i<tab_atribute_name.length; i++) {
+                element.setAttribute(tab_atribute_name[i], tab_atribut_value[i]);
+            }
+
+        //ajout de texte si définit
+        if(text !=undefined){
+            let text_stock=d.createTextNode(text);
+            element.appendChild(text_stock);
+        }
+
+        //ajoute l'element à la node
+
+        node.appendChild(element);
+
+    }
+
+
+</script>

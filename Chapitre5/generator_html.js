@@ -52,31 +52,31 @@ let d=document;
 //  * @param tab_atribut_value
 //  * @param text
 //  */
-// function createNodeV2(node_class,node_position, element_name, tab_atribute_name, tab_atribut_value, text ) {
-//     //On récupère le noeud parent où l'on ajoutera le noeud
-//     // similaire à: let formulaire=d.getElementById("test");
-//
-//     let node=d.getElementsByClassName(node_class)[node_position];
-//     //on créé l'élément
-//     //similaire à: <label for="isbn">Entrer un numéro ISBN-13</label>
-//     let element = d.createElement(element_name);
-//     //on créé et lui ajoute les attributs compris dans tab
-//     if(tab_atribute_name !== undefined)
-//         for(let i=0; i<tab_atribute_name.length; i++) {
-//             element.setAttribute(tab_atribute_name[i], tab_atribut_value[i]);
-//         }
-//
-//     //ajout de texte si définit
-//     if(text !=undefined){
-//         let text_stock=d.createTextNode(text);
-//         element.appendChild(text_stock);
-//     }
-//
-//     //ajoute l'element à la node
-//
-//     node.appendChild(element);
-//
-// }
+function createNodeV2(node_class,node_position, element_name, tab_atribute_name, tab_atribut_value, text ) {
+    //On récupère le noeud parent où l'on ajoutera le noeud
+    // similaire à: let formulaire=d.getElementById("test");
+
+    let node=d.getElementsByClassName(node_class)[node_position];
+    //on créé l'élément
+    //similaire à: <label for="isbn">Entrer un numéro ISBN-13</label>
+    let element = d.createElement(element_name);
+    //on créé et lui ajoute les attributs compris dans tab
+    if(tab_atribute_name !== undefined)
+        for(let i=0; i<tab_atribute_name.length; i++) {
+            element.setAttribute(tab_atribute_name[i], tab_atribut_value[i]);
+        }
+
+    //ajout de texte si définit
+    if(text !=undefined){
+        let text_stock=d.createTextNode(text);
+        element.appendChild(text_stock);
+    }
+
+    //ajoute l'element à la node
+
+    node.appendChild(element);
+
+}
 // /**
 //  * Génére un formulaire V1
 //  * @param name

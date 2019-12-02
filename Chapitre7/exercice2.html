@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ch7ex2</title>
+</head>
+<body>
+
+Formulaire :
+<form action="">
+
+    <p><label for="categorie">Catégorie :</label></p>
+    <select name="" id="categorie">
+        <option></option>
+    </select>
+
+    <p><label for="produits">Produits:</label></p>
+    <select name="" id="produits">
+        <option></option>
+    </select>
+
+    <span id="resultat"></span>
+</form>
+</body>
+
+
+<script>
+    ajax_Asynchrone();
+
+    /**
+     * créé une requête http en fonction du navigateur
+     * @constructor
+     */
+    function Xhr() {
+        let obj = null;
+        try {
+            obj = new ActiveXObject("Microsoft.XMLHTTP");
+        } catch (Error) {
+            try {
+                obj = new ActiveXObject("MSXML2.XMLHTTP");
+            } catch (Error) {
+                try {
+                    obj = new XMLHttpRequest();
+                } catch (Error) {
+                    alert("impossible de créer l\'objet XMLHttpRequest");
+                }
+            }
+        }
+        return obj;
+    }
+
+    /**
+     * Asynchrhone
+     */
+    function ajax_Asynchrone() {
+        //création d'une instance de la clasXMLHtpRequest
+        let req=new Xhr();
+
+        //Connaitre le changement d'un état de la liaison
+        req.onreadystatechange = function(){
+            if(req.readyState == 4){
+                //effectue une action si changement, ici on récupère la réponse
+                alert(req.responseText);
+                //récupération du résultat
+                let result = document.createTextNode(req.responseText)
+                document.getElementById("resultat").appendChild(result);
+            }
+        }
+        //récupération du fichier réponse.txt ( en mode sychrone => false / true => Asynchrone )
+        req.open("GET","categories.php", true);
+        req.send(null);
+
+        //document.getElementsByTagName("a")[0].style.visibility = 'hidden';
+    }
+
+</script>
+</html>
+
