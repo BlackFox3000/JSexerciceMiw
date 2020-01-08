@@ -42,16 +42,16 @@ let d=document;
 //
 // }
 //
-// //dynamique sans raccourcie ---------------------
-// /**
-//  * Ajoute un élément à un noeud (parent)
-//  * @param node_class
-//  * @param node_position
-//  * @param element_name
-//  * @param tab_atribute_name
-//  * @param tab_atribut_value
-//  * @param text
-//  */
+//dynamique sans raccourcie ---------------------
+/**
+ * Ajoute un élément à un noeud (parent)
+ * @param node_class
+ * @param node_position
+ * @param element_name
+ * @param tab_atribute_name
+ * @param tab_atribut_value
+ * @param text
+ */
 function createNodeV2(node_class,node_position, element_name, tab_atribute_name, tab_atribut_value, text ) {
     //On récupère le noeud parent où l'on ajoutera le noeud
     // similaire à: let formulaire=d.getElementById("test");

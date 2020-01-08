@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>evenement</title>
+
+    <style>
+       .gris{
+           width: 150px;
+           height: 150px;
+           background-color: #666666;
+           display: inline-block;
+           position: absolute;
+       }
+
+        .vert{
+            width: 50px;
+            height: 50px;
+            background-color: green;
+        }
+
+    </style>
+</head>
+<body>
+<div class="gris" id="gris">
+    <div class="vert" id="vert" > 1er cas</div>
+</div>
+<script>
+
+    window.onload= event_4;
+    function event_1() {
+        vert.addEventListener("click", function (e) {console.log("vert")}, false);
+        gris.addEventListener("click", function (e) {console.log("gris");}, false);
+    }
+
+    function event_2() {
+        vert.addEventListener("click", function (e) {console.log("vert")}, true);
+        gris.addEventListener("click", function (e) {console.log("gris");}, true);
+    }
+
+    function event_3() {
+        vert.addEventListener("click", function (e) {console.log("vert");e.stopPropagation()}, false);
+        gris.addEventListener("click", function (e) {console.log("gris");e.stopPropagation();}, false);
+    }
+
+    function event_4() {
+        vert.addEventListener("click", function (e) {console.log("vert");e.stopPropagation()}, false);
+        //click de la souris -> active la fonction folloMousse
+        gris.addEventListener("mousedown",followMouse, false);
+      //stoper le déplacement
+        gris.addEventListener("mouseup", function (e) {
+            gris.removeEventListener("mousemove",function (e) {
+                e.stopPropagation();
+            },false)
+        ;e.stopPropagation();}, false);
+
+
+        /**
+         * on récupère l'evenement déplacement de la souris
+         * @param class_name
+         * @param click
+         */
+        function followMouse(clic) {
+            this.addEventListener("mousemove", function (moove) {
+                console.log('clicX:'+clic.clientX+';clicY:'+clic.clientY+';divX:'+moove.style.top +';divX:'+m.style.left);
+               // this.style.top = (clic.clientX-this.offsetTop)+'px';
+               // this.style.left =( clic.clientY-this.offsetLeft)+'px';
+
+                moove.stopPropagation();
+            }, false);
+        }
+
+
+    }
+
+
+
+
+
+</script>
+
+
+
+</body>
+</html>

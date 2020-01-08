@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<livres>
+    <livre id="1">
+        <titre>Olivier Twist</titre>
+        <auteur>DICKENS Charles</auteur>
+        <genre>Roman</genre>
+        <editeur>Editions de l'Erable</editeur>
+        <disponible>non</disponible>
+    </livre>
+    <livre id="2">
+        <titre>Les Misérables (T1)</titre>
+        <auteur>HUGO Victor</auteur>
+        <genre>Roman</genre>
+        <editeur>Flammarion</editeur>
+        <disponible>oui</disponible>
+    </livre>
+</livres>
