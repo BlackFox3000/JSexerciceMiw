@@ -1,0 +1,46 @@
+<script>
+    let mD3 = function(nb) {
+        return nb%3 === 0;
+    };
+
+
+    assert(mD3(0)===true, '0 est un nombre multiple de 3');
+    assert(mD3(3)===true, '3 est un nombre multiple de 3');
+    assert(mD3(6)===true, '6 est un nombre multiple de 3');
+    assert(mD3(5)=== false, '5 n\'est pas multiple de 3');
+    assert(mD3("essai")===false,' essai n\'est pas un multiple de 3');
+    assert(mD3(1)===false, '1 n\'est un nombre multiple de 3');
+
+
+    assert =(result, message)=>{
+        let d = document.createElement('div');
+        message=(result?'TEST REUSSI >> ':'TEST EN ECHEC >> ') + message;
+        d.style.backgroundColor = result ? 'green' : 'red';
+        d.style.color= "white";
+        d.innerHTML = message;
+        document.body.appendChild(d);
+    };
+
+
+    MiwUnit={
+        test: function(titre,p2){
+            let d = document.createElement('div');
+            d.style.backgroundColor ='grey';
+            d.innerHTML = titre;
+            document.body.appendChild(d);
+            p2();
+            let p = document.createElement('p');
+            document.body.appendChild(p);
+        }
+    };
+
+    MiwUnit.test("Test de la fonction mD3()()",function(){
+        assert(mD3(0)===true, '0 est un nombre multiple de 3');
+        assert(mD3(3)===true, '3 est un nombre multiple de 3');
+        assert(mD3(6)===true, '6 est un nombre multiple de 3');
+        assert(mD3(5)=== false, '5 n\'est pas multiple de 3');
+        assert(mD3("essai")===false,' essai n\'est pas un multiple de 3');
+        assert(mD3(1)===false, '1 n\'est un nombre multiple de 3');
+    });
+
+</script>
