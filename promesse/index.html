@@ -1,0 +1,68 @@
+<input type="button" onclick="exo1()" value="exo1">
+<input type="button" onclick="exo2()" value="exo2">
+<input type="button" onclick="exo3()" value="exo3">
+
+<script>
+    
+    function exo1(){
+    console.log("début des requêtes Asynchrones");
+    // Simulation d'une requête A asynchrone avec setTimeout
+    setTimeout( () =>{
+        let a=Math.random();
+        if (a >0.5 ) console.log (`Requête Asynchrone A bien terminée le résultat de a = ${a}`);
+        else console.log ('Requête Asynchrone A mal terminée');
+    }, 5000);
+    console.log("…..requête Asynchrone A en cours d'exécution");
+    // simulation d'une requête B asynchrone avec setTimeout
+    setTimeout( () =>{
+        let b=Math.random();
+        if (b >0.5 ) console.log (`Requete Asynchrone bien terminée le résultat de b = ${b}`);
+        else console.log('Requete Asynchrone B mal terminée');
+    }, 3000);
+
+    console.log("…..requete Asynchrone B en cours d'exécution");
+    }
+    
+    function exo2() {
+        console.log("début des requêtes Asynchrone");
+        // simulation d'une requête A asynchrone avec setTimeout
+        setTimeout( () =>{
+            var a=Math.random();
+            if (a >0.5 ) console.log (`Requête Asynchrone bien terminée le résultat de a = ${a}`);
+            else console.log ('Requête Asynchrone A mal terminée')
+        }, 5000);
+        alert(` a = ${a}`)
+        2
+        // simulation d'une requête B asynchrone avec setTimeout
+        setTimeout( () =>{
+            var b=Math.random();
+            if (b >0.5 ) console.log (`Requête Asynchrone bien terminée le résultat de b = ${b}`);
+            else console.log('Requête Asynchrone B mal terminée')
+        }, 3000);
+
+        alert(` b = ${b}`) 
+    }
+    
+    function exo3() {
+        function asynchrone(resolve,reject,d){
+            // simulation d'une requête A asynchrone avec setTimeout
+            setTimeout( ()=>{
+                let a=Math.random();
+                if (a >d ) resolve(a);
+                else reject(a)
+            }, 3000);
+        };
+        console.log("début des requêtes Asynchrone")
+        asynchrone(
+            (x)=>{ console.log(`1ère requête asynchrone réussie résultat= ${x}`)},
+            (x)=>{console.log(`1ère requête asynchrone échouée résultat= ${x}`)},
+            0.1
+        );
+        asynchrone(
+            (x)=>{console.log(`2ième requête asynchrone réussie résultat= ${x}`)},
+            (x)=>{console.log(`2ième requête asynchrone échouée résultat= ${x}`)},
+            0.1
+        );
+    }
+</script>
+
