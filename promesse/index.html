@@ -1,6 +1,8 @@
 <input type="button" onclick="exo1()" value="exo1">
 <input type="button" onclick="exo2()" value="exo2">
 <input type="button" onclick="exo3()" value="exo3">
+<input type="button" onclick="exo3_0()" value="exo3-0">
+<input type="button" onclick="exo4()" value="exo4">
 
 <script>
     
@@ -63,6 +65,60 @@
             (x)=>{console.log(`2ième requête asynchrone échouée résultat= ${x}`)},
             0.1
         );
+    }
+
+    function exo3_0() {
+        function asynchrone(resolve,reject,d){
+            // simulation d'une requête A asynchrone avec setTimeout
+            setTimeout( ()=>{
+                let a=Math.random();
+                if (a >d ) resolve(a);
+                else reject(a)
+            }, 500);
+        };
+        console.log("début des requêtes Asynchrone")
+
+
+
+
+        asynchrone(
+            (x)=>{
+                console.log(`1ère requête asynchrone réussie résultat= ${x}`);
+                asynchrone(
+                    (y)=>{
+                        console.log(`2ème requête asynchrone réussie résultat= ${y}`);
+                        console.log(`sum= ${y}`);
+                    },
+                    (y)=> {
+                        console.log(`2ème requête asynchrone échouée résultat= ${y}`);
+                    },
+                    0.5
+                );
+            },
+            (x)=> {
+                console.log(`1ère requête asynchrone échouée résultat= ${x}`);
+            },
+            0.5
+        );
+    }
+    
+    function exo4() {
+        requeteAsynchrone(0.5)
+        function requeteAsynchrone (d) {
+            return new Promise( function (resolve, reject) {
+                console.log("début de la requete Asynchrone")
+                let a=Math.random();
+                setTimeout( function () {
+                    if (a >d ) resolve(`Requete Asynchrone bien terminée le résultat = ${a}`);
+                    else reject('Requete Asynchrone mal terminée')
+                }, 3000);
+                console.log(" requete Asynchrone en cours d'exécution")
+            });
+        }
+    }
+    
+    function exo5() {
+        
     }
 </script>
 
