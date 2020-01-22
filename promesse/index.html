@@ -3,6 +3,7 @@
 <input type="button" onclick="exo3()" value="exo3">
 <input type="button" onclick="exo3_0()" value="exo3-0">
 <input type="button" onclick="exo4()" value="exo4">
+<input type="button" onclick="exo5()" value="exo5">
 
 <script>
     
@@ -118,7 +119,30 @@
     }
     
     function exo5() {
-        
+
+        function requeteAsynchrone (d) {
+            return new Promise( function (resolve, reject) {
+                console.log("début de la requete Asynchrone")
+                var a=Math.random();
+                setTimeout( function () {
+                    if (a > d ) resolve(a);
+                    else reject(' Requete Asynchrone mal terminée')
+                }, 3000);
+                console.log(" requete Asynchrone en cours d'exécution")
+            });
+        }
+
+
+        requeteAsynchrone(0.1)
+            .then((x)=>{requeteAsynchrone(0.1) // x résultat de la première requête
+                .then((y)=>{requeteAsynchrone(0.1) // y résultat de la deuxième requête
+                    .then((z)=>{console.log(`x=${x} y=${y} z=${y} x*y*z=${x*y*z}`)})
+                    // z résultat de la troisième requête
+                    .catch((z)=>{console.log('Echec R3 ' + z)})
+                })
+                .catch((y)=>{console.log('Echec R2 ' + y)})
+            })
+            .catch((x)=>{console.log('Echec R1 ' + x)});
     }
 </script>
 

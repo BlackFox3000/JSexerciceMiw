@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Garage</title>
+    <script src="bibliAjax.js"></script>
+    <script src="bibliAjax2.js"></script>
+</head>
+<body>
+    Référence de l'achat (1 to 5 caractère ): <input type="text" id="achat" onchange="run(this.value)">
+    <br><br>
+    Résultat de la première req AD >>>>
+    <br><br>
+    Date de l'achat <input type="text" id="date" readonly> Montant de l'achat <input type="text" id="prix" readonly> Référnce de la voiture <input
+            type="text" id="ref" readonly>
+    <br><br><br>
+    Résultat de la seconde req AD >>>>
+    <br><br>
+    Nom du modèle <input type="text" id="model" readonly> Code de la marque <input type="text" id="code" readonly>
+    <br><br><br>
+    Résultat de la troisième req AD >>>>
+    <br><br>
+    Nom de la marque <input type="text" id="marque" readonly>
+</body>
+
+<script>
+
+    function print( direction,content) {
+        document.getElementById(direction).value = content;
+    }
+
+    function run(ref) {
+        
+    }
+
+
+</script>
+</html>
+
