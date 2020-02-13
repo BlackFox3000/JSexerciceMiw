@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Tambouille</title>
+    <!--        <link rel="stylesheet" href="index.css">-->
+    <script src="index.js"></script>
+    <style>
+        .parametre {
+            display: flex;
+        }
+        .config{
+            display: flex; flex-direction: column; width: 60%;
+        }
+    </style>
+</head>
+
+<header>
+    <div id="inner">
+        <h1>Tambouille, dérivé du morpion</h1>
+    </div>
+</header>
+<body>
+<script type="text/javascript">
+    let id = 1;
+
+    class Player {
+        constructor(form, color, pseudo) {
+            this.id = id;
+            id++;
+            this.form = form;
+            this.color = color;
+            this.pseudo = pseudo;
+            this.score = 0;
+        }
+    }
+
+    class Position {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+
+    let length = 5;
+    let height=100; let border = 10;let form_heigth = height / 2;
+    console.log('he:'+height)
+    players = [];
+    // players[id] = new Player('circle', 'red', 'El V nère'),
+    //     players[id] = new Player('circle', 'blue', 'Bob'),
+    //     players[id] = new Player('square', 'green', 'Ecologue');
+     player = players[1]; score = 3; winner = false;
+</script>
+<canvas id="mon_canvas" style="background-color: #c1c7bd; display:none">
+    Texte alternatif pour les navigateurs ne supportant pas Canvas.
+</canvas>
+<div class="config" id="grille_conf">
+    <label for="length">Taille de la grille </label>
+    <div class="parametre">
+        <input type="range" step="1" id="length" min="2" max="10" value="4"
+               onchange="
+               document.getElementById('length_score').innerHTML=this.value;
+               document.getElementById('length_score1').innerHTML=this.value;
+               length = document.getElementById('length').value;
+                ">
+        <a id="length_score">4</a>x<a id="length_score1">4</a>
+    </div>
+    <label for="border">Taille de la bordure</label>
+    <div class="parametre">
+        <input type="range" step="10" id="border" value="10" min="10"
+               onchange="document.getElementById('bordure_score').innerHTML=this.value;">
+        <a id="bordure_score">10</a>
+    </div>
+    <label for="height">Taille de la grille</label>
+    <div class="parametre">
+        <input type="range" step="20" id="height" value="100" min="20"
+               onchange="document.getElementById('hauteur_score').innerHTML=this.value;
+               heigth(this.value)">
+        <a id="hauteur_score">100</a>
+    </div>
+
+    <div class="parametre">
+        <input type="range" step="1" id="score" value="3" min="2" max="10"
+               onchange="
+               document.getElementById('score_score').innerHTML=this.value;
+               score = this.value;
+                document.getElementById('score_print').innerHTML=this.value;
+                    ">
+        <a id="score_score">3</a>
+    </div>
+
+
+    <input type="button" value="Générer la grille"  id="grille" onclick="generate()">
+</div>
+
+<!-- Formulaire pour ajouter un Joueur-->
+<div class="config" id="players">
+    <label for="addPlayer">Pseudo</label>
+    <input type="text" name="pseudo" id="pseudo" required>
+
+    <label for="form">Choisir la forme</label>
+    <SELECT id="form" size="1">
+        <OPTION value="circle" selected>Cercle
+        <OPTION value="square">Carré
+    </SELECT>
+
+    <label for="color">Choisir la forme</label>
+    <SELECT id="color" size="1">
+        <OPTION value="red" selected>Rouge
+        <OPTION value="blue">Bleu
+        <OPTION value="green" >Green
+        <OPTION value="black">Noir
+    </SELECT>
+
+    <input type="button" value="Ajouter joueur" onclick="addPlayer(document.getElementById('pseudo').value,
+    document.getElementById('form').value, document.getElementById('color').value)" id="addPlayer">
+</div>
+<h1>Liste des joueurs</h1>
+<!--Liste des joueurs-->
+<div id="listPlayer">
+</div>
+<!--Affichage du score-->
+<h2>Gagnant:</h2>
+<span>Aligne <span id="score_print">3</span> points pour remporter la partie!</span>
+<div id="result"></div>
+
+
+
+<script type="text/javascript">
+    //generationGrille(height, length, border);
+    function heigth(newHeight=null){
+        if(newHeight!=null)
+            height=newHeight;
+        console.log(height)
+    }
+
+    function generate(){
+        console.log('he:'+height +' doc:'+document.getElementById('height').value);
+        border = document.getElementById('border').value;
+        generationGrille(height,length,border);
+        document.getElementById('grille_conf').style.display='none';
+    }
+    //initialisation grille
+    table = [];
+    newTable();
+    function newTable() {
+        for (let i = 0; i < length; i++) {
+            table[i] = [];
+            for (let j = 0; j < length; j++) {
+                table[i][j] = null
+            }
+        }
+        console.log(table);
+    }
+
+    //detection d'evenement click
+    document.getElementById('mon_canvas').onclick = (e) => {
+        if (winner === false) {
+            let x = e.clientX - canvas_x;     // Get the horizontal coordinate
+            let y = e.clientY - canvas_y;     // Get the vertical coordinate
+            console.log(`x=${x}; y=${y}`);
+            let myCase = clicCase(x, y);
+            if (myCase === false) {
+                console.log('BORDURE !!');
+                return null;
+            }
+
+            if (!caseEmpty(myCase.x, myCase.y, table)) {
+                console.log('case pleine');
+                return null;
+            }
+            console.log('case vide');
+            table[myCase.x][myCase.y] = player.id;
+            printCase(myCase, player);
+            playerChange();
+            winner = whoWin(table);
+            if (winner)
+                document.getElementById('result').innerHTML = 'Victoire de ' + players[winner].pseudo;
+        }
+
+    };
+
+    /**
+     * Ajoute un joueur à la partie en cour ou à venir
+     * @param pseudo
+     * @param form
+     * @param color
+     */
+    function addPlayer(pseudo,form,color){
+        console.log(pseudo+" "+form+" "+color);
+        players[id] = new Player(form, color, pseudo);
+        if(id===2)
+            player=players[1];
+        document.getElementById("listPlayer").innerHTML +="- "+pseudo+' - '+form+' '+color+' -score: 0'+"<br>";
+    }
+</script>
+
+<input type="button" value="Nouvelle partie" onclick="reloadGame()">
+<script>
+    function reloadGame() {
+        newTable();
+        generationGrille(height,length,border)
+    }
+</script>
+
+<input type="button" value="Relancer le jeu">
+
+</body>
+</html>
