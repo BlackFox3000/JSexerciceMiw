@@ -42,15 +42,16 @@
         }
     }
 
-
     let length = 5;
-    let height=100; let border = 10;let form_heigth = height / 2;
-    console.log('he:'+height)
+    let height=100;
+    let border = 10;
+    let form_heigth = height / 2;
+    let score = 3;
+    localStorage.setItem('length')
     players = [];
-    // players[id] = new Player('circle', 'red', 'El V nère'),
-    //     players[id] = new Player('circle', 'blue', 'Bob'),
-    //     players[id] = new Player('square', 'green', 'Ecologue');
-     player = players[1]; score = 3; winner = false;
+
+     player = players[1];
+     winner = false;
 </script>
 <canvas id="mon_canvas" style="background-color: #c1c7bd; display:none">
     Texte alternatif pour les navigateurs ne supportant pas Canvas.
@@ -126,15 +127,16 @@
 <div id="result"></div>
 
 
-
+<!-- Mise en place du jeu -->
 <script type="text/javascript">
-    //generationGrille(height, length, border);
+    //redéfinir la hauteur
     function heigth(newHeight=null){
         if(newHeight!=null)
             height=newHeight;
         console.log(height)
     }
 
+    //generationGrille(height, length, border);
     function generate(){
         console.log('he:'+height +' doc:'+document.getElementById('height').value);
         border = document.getElementById('border').value;
@@ -175,8 +177,11 @@
             printCase(myCase, player);
             playerChange();
             winner = whoWin(table);
-            if (winner)
+            if (winner){
+                players[winner].score++;
                 document.getElementById('result').innerHTML = 'Victoire de ' + players[winner].pseudo;
+                document.getElementById('score_'+players[winner].pseudo).innerHTML = players[winner].score;
+            }
         }
 
     };
@@ -192,18 +197,39 @@
         players[id] = new Player(form, color, pseudo);
         if(id===2)
             player=players[1];
-        document.getElementById("listPlayer").innerHTML +="- "+pseudo+' - '+form+' '+color+' -score: 0'+"<br>";
+        document.getElementById("listPlayer").innerHTML +="- "+pseudo+' - '+form+' '+color+' -score:<span id=\'score_'+pseudo+'\'>0</span><br>';
     }
 </script>
 
+<!-- Stockage des données-->
+<script>
+
+    // let length = 5;
+    // let height=100; let border = 10;let form_heigth = height / 2;
+    // console.log('he:'+height)
+    // players = [];
+
+   // length.onchange = (e) => {
+
+
+        //debug
+        console.log("début stock");
+        for (let i = 0; i < localStorage.length; i++) {
+            console.log(localStorage.key(i) + " " + localStorage.getItem(localStorage.key(i)));
+        }
+        console.log("fin stock");
+  //  }
+</script>
+
+<!-- Relancer une partie  -->
 <input type="button" value="Nouvelle partie" onclick="reloadGame()">
 <script>
     function reloadGame() {
         newTable();
-        generationGrille(height,length,border)
+        generationGrille(height,length,border);
+        winner = false;
     }
 </script>
-
 <input type="button" value="Relancer le jeu">
 
 </body>
