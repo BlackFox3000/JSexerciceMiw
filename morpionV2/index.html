@@ -5,6 +5,7 @@
     <title>Tambouille</title>
     <!--        <link rel="stylesheet" href="index.css">-->
     <script src="index.js"></script>
+    <script src="storage.js"></script>
     <style>
         .parametre {
             display: flex;
@@ -19,6 +20,7 @@
     <div id="inner">
         <h1>Tambouille, dérivé du morpion</h1>
     </div>
+    <div>Au tour de: <div id="player_actif">Ajouter un joueur pour commencer la partie</div></div>
 </header>
 <body>
 <script type="text/javascript">
@@ -42,16 +44,22 @@
         }
     }
 
+    console.log('stock exist'+localStorage.length)
+    if(localStorage.length>0)
+
+    console.log(localStorage)
     let length = 5;
     let height=100;
     let border = 10;
     let form_heigth = height / 2;
     let score = 3;
-    localStorage.setItem('length')
+    saveGrille(length,height,border,score)
     players = [];
-
      player = players[1];
      winner = false;
+
+
+
 </script>
 <canvas id="mon_canvas" style="background-color: #c1c7bd; display:none">
     Texte alternatif pour les navigateurs ne supportant pas Canvas.
@@ -114,8 +122,11 @@
         <OPTION value="black">Noir
     </SELECT>
 
-    <input type="button" value="Ajouter joueur" onclick="addPlayer(document.getElementById('pseudo').value,
-    document.getElementById('form').value, document.getElementById('color').value)" id="addPlayer">
+    <input type="button" value="Ajouter joueur" onclick="addPlayer(
+        document.getElementById('pseudo').value,
+        document.getElementById('form').value,
+        document.getElementById('color').value)
+        " id="addPlayer">
 </div>
 <h1>Liste des joueurs</h1>
 <!--Liste des joueurs-->
@@ -142,6 +153,7 @@
         border = document.getElementById('border').value;
         generationGrille(height,length,border);
         document.getElementById('grille_conf').style.display='none';
+        saveGrille(length,height,border,score)
     }
     //initialisation grille
     table = [];
@@ -176,6 +188,7 @@
             table[myCase.x][myCase.y] = player.id;
             printCase(myCase, player);
             playerChange();
+            document.getElementById('player_actif').innerHTML = player.pseudo;
             winner = whoWin(table);
             if (winner){
                 players[winner].score++;
@@ -194,11 +207,18 @@
      */
     function addPlayer(pseudo,form,color){
         console.log(pseudo+" "+form+" "+color);
+        //on peu rajouter une vérification  ( si pseudo existe )
         players[id] = new Player(form, color, pseudo);
-        if(id===2)
+        //s'il n'existe qu'un joueur on lui redonne la main
+        if(id===2){
             player=players[1];
+            document.getElementById('player_actif').innerHTML = player.pseudo;
+        }
         document.getElementById("listPlayer").innerHTML +="- "+pseudo+' - '+form+' '+color+' -score:<span id=\'score_'+pseudo+'\'>0</span><br>';
+        savePlayers(players)
     }
+
+
 </script>
 
 <!-- Stockage des données-->
