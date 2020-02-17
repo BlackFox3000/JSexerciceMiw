@@ -24,7 +24,7 @@
 </header>
 <body>
 <script type="text/javascript">
-    let id = 1;
+    let id = 1, stock=false;
 
     class Player {
         constructor(form, color, pseudo) {
@@ -44,19 +44,28 @@
         }
     }
 
-    console.log('stock exist'+localStorage.length)
-    if(localStorage.length>0)
 
-    console.log(localStorage)
-    let length = 5;
-    let height=100;
-    let border = 10;
-    let form_heigth = height / 2;
-    let score = 3;
-    saveGrille(length,height,border,score)
-    players = [];
-     player = players[1];
-     winner = false;
+    var length = 5;
+    var height = 100;
+    var border = 10;
+    var form_heigth = height / 2;
+    var score = 3;
+    var players = [];
+    var player = players[1];  // stock l'information du joueur actif
+    var winner = false;
+    var table = [];
+
+    console.log('stock exist'+localStorage.length);
+    if(localStorage.length>0){
+        console.log(localStorage);
+        console.log("AH AH Y A QUELQUE CHOSE LA DEDANS");
+        getSaves();
+        stock=true;
+    }
+    else
+        saveActif(1);
+    saveGrille(length, height, border, score)
+
 
 
 
@@ -64,6 +73,7 @@
 <canvas id="mon_canvas" style="background-color: #c1c7bd; display:none">
     Texte alternatif pour les navigateurs ne supportant pas Canvas.
 </canvas>
+<!-- Config Grille-->
 <div class="config" id="grille_conf">
     <label for="length">Taille de la grille </label>
     <div class="parametre">
@@ -100,7 +110,7 @@
     </div>
 
 
-    <input type="button" value="Générer la grille"  id="grille" onclick="generate()">
+    <input type="button" value="Générer la grille"  id="grille" onclick="generate();">
 </div>
 
 <!-- Formulaire pour ajouter un Joueur-->
@@ -118,18 +128,23 @@
     <SELECT id="color" size="1">
         <OPTION value="red" selected>Rouge
         <OPTION value="blue">Bleu
-        <OPTION value="green" >Green
+        <OPTION value="green" >Vert
         <OPTION value="black">Noir
+        <OPTION value="#E91E63">Rose
     </SELECT>
 
-    <input type="button" value="Ajouter joueur" onclick="addPlayer(
+
+    <input type="button" value="Ajouter joueur" onclick="
+    addPlayer(
         document.getElementById('pseudo').value,
         document.getElementById('form').value,
-        document.getElementById('color').value)
+        document.getElementById('color').value);
+        savePlayers(players)
         " id="addPlayer">
 </div>
-<h1>Liste des joueurs</h1>
+
 <!--Liste des joueurs-->
+<h1>Liste des joueurs</h1>
 <div id="listPlayer">
 </div>
 <!--Affichage du score-->
@@ -147,25 +162,17 @@
         console.log(height)
     }
 
-    //generationGrille(height, length, border);
-    function generate(){
-        console.log('he:'+height +' doc:'+document.getElementById('height').value);
-        border = document.getElementById('border').value;
-        generationGrille(height,length,border);
-        document.getElementById('grille_conf').style.display='none';
-        saveGrille(length,height,border,score)
+    //Initialisation de la grille en fct du local storage
+    if(stock){
+        generate()
+        loadTable();
+        loadPlayers()
     }
-    //initialisation grille
-    table = [];
-    newTable();
-    function newTable() {
-        for (let i = 0; i < length; i++) {
-            table[i] = [];
-            for (let j = 0; j < length; j++) {
-                table[i][j] = null
-            }
-        }
-        console.log(table);
+    else{
+        //initialisation grille
+        table = [];
+        newTable();
+
     }
 
     //detection d'evenement click
@@ -188,6 +195,7 @@
             table[myCase.x][myCase.y] = player.id;
             printCase(myCase, player);
             playerChange();
+            saveActif(player.id);
             document.getElementById('player_actif').innerHTML = player.pseudo;
             winner = whoWin(table);
             if (winner){
@@ -195,6 +203,8 @@
                 document.getElementById('result').innerHTML = 'Victoire de ' + players[winner].pseudo;
                 document.getElementById('score_'+players[winner].pseudo).innerHTML = players[winner].score;
             }
+            savePlayers(players)
+            saveTable(table)
         }
 
     };
@@ -250,7 +260,7 @@
         winner = false;
     }
 </script>
-<input type="button" value="Relancer le jeu">
+<input type="button" value="Relancer le jeu" onclick="localStorage.clear();location.reload();">
 
 </body>
 </html>

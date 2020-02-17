@@ -1,5 +1,5 @@
 /**
- *  Gestion génération Grille
+ *  Gestion gï¿½nï¿½ration Grille
  *
  */
 function generationGrille(height, length, border) {
@@ -13,11 +13,11 @@ function generationGrille(height, length, border) {
     document.getElementById('mon_canvas').setAttribute('height',L+'px');
     document.getElementById('mon_canvas').style.display="unset";
 
-    //définition de la position du canvas
+    //dï¿½finition de la position du canvas
     canvas_x= document.getElementById('mon_canvas').offsetLeft;
     canvas_y = document.getElementById('mon_canvas').offsetTop;
 
-    //Création de la grille
+    //Crï¿½ation de la grille
     var c = document.getElementById("mon_canvas");
      ctx = c.getContext("2d");
     for(let i=0; i<length; i++){
@@ -36,19 +36,23 @@ function generationGrille(height, length, border) {
  * Remplis la case avec la forme du joueur
  */
 function printCase(Case, player) {
+    console.log(player)
+    console.log('formP:'+player.form)
     if(player.form==='circle'){
-        let center_x = height/2+border/2+height*Case.x;
-        center_y = height/2+border/2+height*Case.y;
+        let center_x = height/2 + border/2 + height*Case.x;
+        center_y = height/2 + border/2 + height*Case.y;
         center=new Position(center_x, center_y);
-        circle(center, player.color)
+        circle(center, player.color);
+        console.log('circle')
     }
+
     if(player.form==='square'){
         let center_x = height/4+border/2+height*Case.x,
             center_y = height/4+border/2+height*Case.y,
             center=new Position(center_x, center_y);
-        square(center, player.color)
+        square(center, player.color);
+        console.log('square')
     }
-
 }
 
 /**
@@ -64,7 +68,7 @@ function circle(center,color){
     ctx.stroke();
 }
 function square(center, color) {
-    console.log('et voila un jolie carré: '+center + ' ' +color)
+    console.log('et voila un jolie carrï¿½: '+center + ' ' +color)
     ctx.strokeStyle = color;
     ctx.strokeRect(center.x,center.y,form_heigth,form_heigth);
 }
@@ -82,7 +86,7 @@ function playerChange() {
         player=players[player.id+1];
     else
         player=players[1]
-    console.log('Au tour du joueur n°'+player.id)
+    console.log('Au tour du joueur nï¿½'+player.id)
 }
 
 /**
@@ -95,10 +99,12 @@ function clicCase(x,y) {
     //Est ce que l'on est sur une bordur?
     x_mod = Math.trunc(x % height);
     y_mod = Math.trunc(y % height);
+
     // console.log(`x%=${x_mod}; y%=${y_mod}<br> est sur une bordur:`)
     // console.log( !(x_mod<border || y_mod<border) );
     x = Math.trunc(x / height);
     y = Math.trunc(y / height);
+
     // console.log(`xx=${x}; yy=${y}`)
 
     if (!(x_mod<border || y_mod<border )){
@@ -112,20 +118,20 @@ function clicCase(x,y) {
 }
 
 /**
- * Vérifie si la case est vide
+ * VÃ©rifie si la case est vide
  */
 function caseEmpty(x, y, table) {
-    console.log(x)
+    console.log(x);
     return (table[x][y]===null);
 }
 
 /**
- *  Gestion vérification grille
+ *  Gestion vï¿½rification grille
  *
  */
 
 /**
- * Detecte si un joueur à gagné, si oui retourne son id sinon false
+ * Detecte si un joueur ï¿½ gagnï¿½, si oui retourne son id sinon false
  */
 function whoWin(table) {
     for(let index=1; index<players.length; index++){
@@ -133,7 +139,7 @@ function whoWin(table) {
         console.log('l id du joueur'+joueur.id)
         result=scoreMorpion(table,score, joueur.id)
         if(result>0){
-            console.log("VICTOIRE DU JOUEUR n°:"+joueur.id)
+            console.log("VICTOIRE DU JOUEUR nï¿½:"+joueur.id)
             return joueur.id}
         else
             console.log("et sa continue encore encore..score:"+score)
@@ -141,7 +147,7 @@ function whoWin(table) {
     return false
 
 
-    //comptabilisé le nombre de fois où nombCroix "1" sont alignés
+    //comptabilisï¿½ le nombre de fois oï¿½ nombCroix "1" sont alignï¿½s
     function scoreMorpion(tab,nombCroix, id){
         var i=0, j=0, point=0;
         var d=tab.length;
@@ -252,3 +258,24 @@ function whoWin(table) {
  <h2>Historique parcourt scoreMorpion:</h2>
  <p id="historic"> </p>
 **/
+
+
+//generationGrille(height, length, border);
+function generate(){
+    //console.log('he:'+height +' doc:'+document.getElementById('height').value);
+   // border = document.getElementById('border').value;
+    generationGrille(height,length,border);
+    document.getElementById('grille_conf').style.display='none';
+    saveGrille(length,height,border,score)
+}
+
+
+function newTable() {
+    for (let i = 0; i < length; i++) {
+        table[i] = [];
+        for (let j = 0; j < length; j++) {
+            table[i][j] = null
+        }
+    }
+    console.log(table);
+}
