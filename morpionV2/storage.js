@@ -37,12 +37,13 @@ function saveGrille(length,height,border,score) {
 }
 
 function getSaves() {
-    var length = localStorage.getItem('length');
-    var height = localStorage.getItem('height');
-    var border = localStorage.getItem('border');
-    var form_heigth = height / 2;
-    var score = localStorage.getItem('score');
-    var id = localStorage.getItem('id');
+    length = localStorage.getItem('length');
+    height = localStorage.getItem('height');
+    border = localStorage.getItem('border');
+    form_heigth = height / 2;
+    score = localStorage.getItem('score');
+    if(localStorage.getItem('id')!=null)
+        id = localStorage.getItem('id');
     players = getPlayers();
     winner = false;
     if(localStorage.getItem('actif')!=null)
