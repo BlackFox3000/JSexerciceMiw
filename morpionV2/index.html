@@ -20,7 +20,15 @@
     <div id="inner">
         <h1>Tambouille, dérivé du morpion</h1>
     </div>
-    <div>Au tour de: <div id="player_actif">Ajouter un joueur pour commencer la partie</div></div>
+    <div>Au tour de:
+        <div id="player_actif" style="background-color: #81bfff">
+            Ajouter un joueur pour commencer la partie.
+            <br> Entre un nom dans Pseudo
+            <br> Choisi une forme
+            <br> Choisi une couleur
+            <br> Appuie sur "Ajouter un joueur"
+        </div>
+    </div>
 </header>
 <body>
 <script type="text/javascript">
@@ -48,7 +56,7 @@
     var height = 100;
     var border = 10;
     var form_heigth = height / 2;
-    var score = 3;
+    var score = 4;
     var players = [];
     var player = players[1];  // stock l'information du joueur actif
     var winner = false;
@@ -81,6 +89,8 @@
                document.getElementById('length_score').innerHTML=this.value;
                document.getElementById('length_score1').innerHTML=this.value;
                length = document.getElementById('length').value;
+               if(score>length)
+                    score = initialiseScore(score,length)
                 ">
         <a id="length_score">4</a>x<a id="length_score1">4</a>
     </div>
@@ -98,12 +108,11 @@
         <a id="hauteur_score">100</a>
     </div>
 
+    <label for="height">Nombre de croix nécessaire pour gagner (Ne pas depasser la taille de la grille)</label>
     <div class="parametre">
         <input type="range" step="1" id="score" value="3" min="2" max="10"
                onchange="
-               document.getElementById('score_score').innerHTML=this.value;
-               score = this.value;
-                document.getElementById('score_print').innerHTML=this.value;
+                score = initialiseScore(this.value,length)
                     ">
         <a id="score_score">3</a>
     </div>
@@ -123,7 +132,7 @@
         <OPTION value="square">Carré
     </SELECT>
 
-    <label for="color">Choisir la forme</label>
+    <label for="color">Choisir la couleur</label>
     <SELECT id="color" size="1">
         <OPTION value="red" selected>Rouge
         <OPTION value="blue">Bleu
@@ -134,11 +143,12 @@
 
 
     <input type="button" value="Ajouter joueur" onclick="
+    if(this.value!==''||this.value===null){
     addPlayer(
         document.getElementById('pseudo').value,
         document.getElementById('form').value,
         document.getElementById('color').value);
-        savePlayers(players)
+        savePlayers(players)}
         " id="addPlayer">
 </div>
 
@@ -224,7 +234,8 @@
             document.getElementById('player_actif').innerHTML = player.pseudo;
         }
         document.getElementById("listPlayer").innerHTML +="- "+pseudo+' - '+form+' '+color+' -score:<span id=\'score_'+pseudo+'\'>0</span><br>';
-        savePlayers(players)
+        savePlayers(players);
+        document.getElementById('pseudo').value = '';
     }
 
 
@@ -251,7 +262,7 @@
 </script>
 
 <!-- Relancer une partie  -->
-<input type="button" value="Nouvelle partie" onclick="reloadGame()">
+<input type="button" value="Nouvelle partie" id="new_party" style="display:none" onclick="reloadGame()">
 <script>
     function reloadGame() {
         newTable();
@@ -259,7 +270,7 @@
         winner = false;
     }
 </script>
-<input type="button" value="Relancer le jeu" onclick="localStorage.clear();location.reload();">
+<input type="button" id="new_game" value="Relancer le jeu" style="display:none" onclick="localStorage.clear();location.reload();">
 
 </body>
 </html>

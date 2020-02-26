@@ -266,7 +266,9 @@ function generate(){
    // border = document.getElementById('border').value;
     generationGrille(height,length,border);
     document.getElementById('grille_conf').style.display='none';
-    saveGrille(length,height,border,score)
+    saveGrille(length,height,border,score);
+    document.getElementById('new_party').style.display='unset';
+    document.getElementById('new_game').style.display='unset';
 }
 
 
@@ -278,4 +280,15 @@ function newTable() {
         }
     }
     console.log(table);
+}
+
+function initialiseScore(score, taille_table) {
+    if(score>taille_table)
+        score = taille_table
+    document.getElementById('score_score').innerHTML=score;
+    score = score;
+    document.getElementById('score_print').innerHTML=score;
+    document.getElementById('score_print').innerHTML=score;
+    document.getElementById('score').value=score;
+    return score;
 }
