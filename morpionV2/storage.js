@@ -27,6 +27,9 @@ function saveScore(value) {
 function saveActif(value) {
     localStorage.setItem('actif', value);
 }
+function saveWinner(value) {
+    localStorage.setItem('winner', value);
+}
 
 
 function saveGrille(length,height,border,score) {
@@ -34,6 +37,10 @@ function saveGrille(length,height,border,score) {
      saveHeight(height)
      saveBorder(border)
      saveScore(score)
+}
+
+function getWinner() {
+    return localStorage.getItem('winner');
 }
 
 function getSaves() {
@@ -45,15 +52,16 @@ function getSaves() {
     if(localStorage.getItem('id')!=null)
         id = localStorage.getItem('id');
     players = getPlayers();
-    winner = false;
-    if(localStorage.getItem('actif')!=null)
+    winner = getWinner();
+    if(localStorage.getItem('actif')!=null && players != null){
         player=players[localStorage.getItem('actif')];
-    document.getElementById('player_actif').innerHTML = player.pseudo;
+    document.getElementById('player_actif').innerHTML = player.pseudo;}
 }
 
 function loadPlayers() {
     console.log('reset players')
     console.log(players)
+    if(players!=null)
     for(let i=1; i<players.length; i++){
         document.getElementById("listPlayer").innerHTML +="- "+players[i].pseudo+' - '+players[i].form+' '+
             players[i].color+' -score:<span id=\'score_'+players[i].pseudo+'\'>'+players[i].score+'</span><br>';
@@ -62,6 +70,7 @@ function loadPlayers() {
 
 function loadTable() {
     table=getTable();
+    if(table!=null)
     for(let i=0; i<table.length; i++){
         for(let j=0;j<table[i].length ; j++){
             if(table[i][j]!= null){

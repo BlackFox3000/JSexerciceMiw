@@ -140,7 +140,8 @@ function whoWin(table) {
         result=scoreMorpion(table,score, joueur.id)
         if(result>0){
             console.log("VICTOIRE DU JOUEUR n�:"+joueur.id)
-            return joueur.id}
+            return joueur.id
+        }
         else
             console.log("et sa continue encore encore..score:"+score)
     }
@@ -259,16 +260,12 @@ function whoWin(table) {
  <p id="historic"> </p>
 **/
 
-
-//generationGrille(height, length, border);
+/**
+ *  genere un morpion
+ */
 function generate(){
-    //console.log('he:'+height +' doc:'+document.getElementById('height').value);
-   // border = document.getElementById('border').value;
     generationGrille(height,length,border);
-    document.getElementById('grille_conf').style.display='none';
-    saveGrille(length,height,border,score);
-    document.getElementById('new_party').style.display='unset';
-    document.getElementById('new_game').style.display='unset';
+    saveGrille(length,height,border,score)
 }
 
 
@@ -282,13 +279,18 @@ function newTable() {
     console.log(table);
 }
 
-function initialiseScore(score, taille_table) {
-    if(score>taille_table)
-        score = taille_table
-    document.getElementById('score_score').innerHTML=score;
-    score = score;
-    document.getElementById('score_print').innerHTML=score;
-    document.getElementById('score_print').innerHTML=score;
-    document.getElementById('score').value=score;
-    return score;
+
+function validePlayer(pseudo, form, color, players) {
+    if( pseudo === null || pseudo==='' ||
+        form === null || form==='' ||
+        color === null || color===''
+    )
+        return false;
+    if(players[1] !==undefined){
+        if(players[1].color===color && players[1].form ===form || players[1].pseudo===pseudo)
+            return false
+    }
+    console.log("player validate")
+    return true;
 }
+

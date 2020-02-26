@@ -2,33 +2,28 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Tambouille</title>
+    <title>Morpion V2</title>
     <!--        <link rel="stylesheet" href="index.css">-->
     <script src="index.js"></script>
     <script src="storage.js"></script>
     <style>
-        .parametre {
+        #parametre {
             display: flex;
         }
         .config{
             display: flex; flex-direction: column; width: 60%;
+        }
+        #error{
+
         }
     </style>
 </head>
 
 <header>
     <div id="inner">
-        <h1>Tambouille, dérivé du morpion</h1>
+        <h1>Morpion V2</h1>
     </div>
-    <div>Au tour de:
-        <div id="player_actif" style="background-color: #81bfff">
-            Ajouter un joueur pour commencer la partie.
-            <br> Entre un nom dans Pseudo
-            <br> Choisi une forme
-            <br> Choisi une couleur
-            <br> Appuie sur "Ajouter un joueur"
-        </div>
-    </div>
+    <div>Au tour de: <div id="player_actif" style="background-color: #66c1ff">Ajouter un joueur pour commencer la partie</div></div>
 </header>
 <body>
 <script type="text/javascript">
@@ -52,78 +47,35 @@
         }
     }
 
-    var length = 4;
+    var length = 5;
     var height = 100;
     var border = 10;
     var form_heigth = height / 2;
-    var score = 4;
+    var score = 3;
+    var player;
     var players = [];
-    var player = players[1];  // stock l'information du joueur actif
     var winner = false;
     var table = [];
 
-    console.log('stock exist'+localStorage.length);
+    console.log('elements en memoire:'+localStorage.length);
     if(localStorage.length>0){
         console.log(localStorage);
-        console.log("AH AH Y A QUELQUE CHOSE LA DEDANS");
         getSaves();
         stock=true;
     }
     else
         saveActif(1);
     saveGrille(length, height, border, score)
-
-
-
-
 </script>
+
 <canvas id="mon_canvas" style="background-color: #c1c7bd; display:none">
     Texte alternatif pour les navigateurs ne supportant pas Canvas.
 </canvas>
-<!-- Config Grille-->
-<div class="config" id="grille_conf">
-    <label for="length">Taille de la grille </label>
-    <div class="parametre">
-        <input type="range" step="1" id="length" min="2" max="10" value="4"
-               onchange="
-               document.getElementById('length_score').innerHTML=this.value;
-               document.getElementById('length_score1').innerHTML=this.value;
-               length = document.getElementById('length').value;
-               if(score>length)
-                    score = initialiseScore(score,length)
-                ">
-        <a id="length_score">4</a>x<a id="length_score1">4</a>
-    </div>
-    <label for="border">Taille de la bordure</label>
-    <div class="parametre">
-        <input type="range" step="10" id="border" value="10" min="10"
-               onchange="document.getElementById('bordure_score').innerHTML=this.value;">
-        <a id="bordure_score">10</a>
-    </div>
-    <label for="height">Taille de la grille</label>
-    <div class="parametre">
-        <input type="range" step="20" id="height" value="100" min="20"
-               onchange="document.getElementById('hauteur_score').innerHTML=this.value;
-               heigth(this.value)">
-        <a id="hauteur_score">100</a>
-    </div>
-
-    <label for="height">Nombre de croix nécessaire pour gagner (Ne pas depasser la taille de la grille)</label>
-    <div class="parametre">
-        <input type="range" step="1" id="score" value="3" min="2" max="10"
-               onchange="
-                score = initialiseScore(this.value,length)
-                    ">
-        <a id="score_score">3</a>
-    </div>
-
-
-    <input type="button" value="Générer la grille"  id="grille" onclick="generate();">
-</div>
+<div>Aligne <span id="score_print">3</span> points pour remporter la partie!</div>
 
 <!-- Formulaire pour ajouter un Joueur-->
-<div class="config" id="players">
-    <label for="addPlayer">Pseudo</label>
+<div class="config" id="add_players">
+    <label for="addPlayer">Pseudo</label><span id="error"></span>
     <input type="text" name="pseudo" id="pseudo" required>
 
     <label for="form">Choisir la forme</label>
@@ -132,7 +84,7 @@
         <OPTION value="square">Carré
     </SELECT>
 
-    <label for="color">Choisir la couleur</label>
+    <label for="color">Choisir la forme</label>
     <SELECT id="color" size="1">
         <OPTION value="red" selected>Rouge
         <OPTION value="blue">Bleu
@@ -143,12 +95,11 @@
 
 
     <input type="button" value="Ajouter joueur" onclick="
-    if(this.value!==''||this.value===null){
     addPlayer(
         document.getElementById('pseudo').value,
         document.getElementById('form').value,
-        document.getElementById('color').value);
-        savePlayers(players)}
+        document.getElementById('color').value,
+        players);
         " id="addPlayer">
 </div>
 
@@ -157,20 +108,37 @@
 <div id="listPlayer">
 </div>
 <!--Affichage du score-->
-<h2>Gagnant:</h2>
-<span>Aligne <span id="score_print">3</span> points pour remporter la partie!</span>
-<div id="result"></div>
+<h2><span id="result"></span></h2>
+
+<!-- Ajouter un joueur -->
+<script>
+    /**
+     * Ajoute un joueur à la partie en cour ou à venir
+     * @param pseudo
+     * @param form
+     * @param color
+     */
+    function addPlayer(pseudo,form,color){
+        console.log(pseudo+" "+form+" "+color);
+        //Vérification si les données ne sont pas déja utilisées ou s'il n'existe pas déjà 2 jouers
+        if(validePlayer(pseudo,form,color, players) && id<=2) {
+            console.log("testeur")
+            players[id] = new Player(form, color, pseudo);
+            console.log('id:'+id)
+            //s'il n'existe qu'un joueur on lui redonne la main
+            player = players[id-1];
+            document.getElementById('player_actif').innerHTML = player.pseudo;
+            document.getElementById("listPlayer").innerHTML += "- " + pseudo + ' - ' + form + ' ' + color + ' -score:<span id=\'score_' + pseudo + '\'>0</span><br>';
+            savePlayers(players)
+        }
+        else
+            console.log("player NOT validate")
+    }
+</script>
 
 
 <!-- Mise en place du jeu -->
 <script type="text/javascript">
-    //redéfinir la hauteur
-    function heigth(newHeight=null){
-        if(newHeight!=null)
-            height=newHeight;
-        console.log(height)
-    }
-
     //Initialisation de la grille en fct du local storage
     if(stock){
         generate()
@@ -181,7 +149,7 @@
         //initialisation grille
         table = [];
         newTable();
-
+        generate();
     }
 
     //detection d'evenement click
@@ -211,6 +179,7 @@
                 players[winner].score++;
                 document.getElementById('result').innerHTML = 'Victoire de ' + players[winner].pseudo;
                 document.getElementById('score_'+players[winner].pseudo).innerHTML = players[winner].score;
+                saveWinner(winner)
             }
             savePlayers(players)
             saveTable(table)
@@ -218,51 +187,21 @@
 
     };
 
-    /**
-     * Ajoute un joueur à la partie en cour ou à venir
-     * @param pseudo
-     * @param form
-     * @param color
-     */
-    function addPlayer(pseudo,form,color){
-        console.log(pseudo+" "+form+" "+color);
-        //on peu rajouter une vérification  ( si pseudo existe )
-        players[id] = new Player(form, color, pseudo);
-        //s'il n'existe qu'un joueur on lui redonne la main
-        if(id===2){
-            player=players[1];
-            document.getElementById('player_actif').innerHTML = player.pseudo;
-        }
-        document.getElementById("listPlayer").innerHTML +="- "+pseudo+' - '+form+' '+color+' -score:<span id=\'score_'+pseudo+'\'>0</span><br>';
-        savePlayers(players);
-        document.getElementById('pseudo').value = '';
-    }
 
 
 </script>
 
 <!-- Stockage des données-->
 <script>
-
-    // let length = 5;
-    // let height=100; let border = 10;let form_heigth = height / 2;
-    // console.log('he:'+height)
-    // players = [];
-
-   // length.onchange = (e) => {
-
-
-        //debug
         console.log("début stock");
         for (let i = 0; i < localStorage.length; i++) {
             console.log(localStorage.key(i) + " " + localStorage.getItem(localStorage.key(i)));
         }
         console.log("fin stock");
-  //  }
 </script>
 
 <!-- Relancer une partie  -->
-<input type="button" value="Nouvelle partie" id="new_party" style="display:none" onclick="reloadGame()">
+<input type="button" value="Nouvelle partie" onclick="reloadGame()">
 <script>
     function reloadGame() {
         newTable();
@@ -270,7 +209,7 @@
         winner = false;
     }
 </script>
-<input type="button" id="new_game" value="Relancer le jeu" style="display:none" onclick="localStorage.clear();location.reload();">
+<input type="button" value="Relancer le jeu" onclick="localStorage.clear();location.reload();">
 
 </body>
 </html>
